@@ -10,7 +10,6 @@
 ## Run locally in Dev Mode:
 1) Make sure `.env.development.local` is setup with:
    - `REACT_APP_API_URL=http://localhost:8000`
-1) `cd ph-view-react`
 1) `npx start`
 1) View at [http://localhost:3000](http://localhost:8000)
 
