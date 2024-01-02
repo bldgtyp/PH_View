@@ -49,7 +49,7 @@ jobs:
       #   run: npm run test
 
       - name: Uploading production-ready build files
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-pages-artifact@v1
         with:
           name: production-files
           path: ./build
@@ -57,7 +57,7 @@ jobs:
   # Deployment job
   deploy:
     needs: build
-    
+
     runs-on: ubuntu-latest
 
     environment:
