@@ -31,8 +31,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Setup Pages
         id: pages
@@ -55,7 +57,7 @@ jobs:
       - name: Uploading production-ready build files
         uses: actions/upload-pages-artifact@v1
         with:
-          name: production-files
+          # name: production-files
           path: ./build
 
   # Deployment job
