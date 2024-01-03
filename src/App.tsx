@@ -6,7 +6,7 @@ function App() {
 
   useEffect(() => {
     // Use environment variable for API URL
-    const apiUrl =
+    const apiUrl: any =
       process.env.REACT_APP_API_URL || "https://ph-view.onrender.com/";
 
     console.log("API URL:", apiUrl); // Add this line
