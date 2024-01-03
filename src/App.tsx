@@ -38,7 +38,7 @@ function App() {
     const apiUrlBase: any =
       process.env.REACT_APP_API_URL || "https://ph-view.onrender.com/";
 
-    const apiUrl = apiUrlBase + "/erv_units";
+    const apiUrl = apiUrlBase + "erv_units";
 
     console.log("API URL:", apiUrl); // Add this line
 
