@@ -1,13 +1,44 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 
+type ErvFields = {
+  "AIRFLOW [CFM]": number;
+  "DEFROST MIN TEMP [°F]": number;
+  DISPLAY_NAME: string;
+  "DUCT_ETA_SIZE [IN]": string;
+  "DUCT_SUP_SIZE [IN]": string;
+  "ELECTRICAL EFFICIENCY [W/CFM]": number;
+  "ELECTRICAL_EFFICIENCY [W/CFM]": number;
+  "ENERGY RECOVERY [%]": number;
+  "ERV: RISERS": Array<string>;
+  "HAS SUMMER BYPASS?": string;
+  "HAVE AHRI TESTING?": string;
+  "HAVE SPEC?": "No";
+  "HEAT RECOVERY [%]": number;
+  "IN CONDITIONED SPACE?": string;
+  MANUFACTURER: string;
+  MODEL: string;
+  "Name (from ERV: RISERS)": Array<string>;
+  "ROOMS SERVED": Array<string>;
+  "WATTAGE [W]": number;
+  "WINTER DEFROST PROTECTION?": string;
+};
+
+type ErvRecord = {
+  id: string;
+  createdTime: string;
+  fields: ErvFields;
+};
+
 function App() {
-  const [message, setMessage] = useState("");
+  const [ervData, setErvData] = useState<Array<ErvRecord>>([]);
 
   useEffect(() => {
     // Use environment variable for API URL
-    const apiUrl: any =
+    const apiUrlBase: any =
       process.env.REACT_APP_API_URL || "https://ph-view.onrender.com/";
+
+    const apiUrl = apiUrlBase + "/erv_units";
 
     console.log("API URL:", apiUrl); // Add this line
 
@@ -21,9 +52,9 @@ function App() {
         // Parse the JSON response
         return response.json();
       })
-      .then((data) => {
+      .then((data: Array<ErvRecord>) => {
         // Set the message from the API response
-        setMessage(data.message);
+        setErvData(data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -33,7 +64,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>{message}</h1>
+        {ervData &&
+          Object.values(ervData).map((item: ErvRecord) => (
+            <div key={item.id}>
+              {item.createdTime}: {item.fields.DISPLAY_NAME}
+            </div>
+          ))}
       </header>
     </div>
   );

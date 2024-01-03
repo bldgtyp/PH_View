@@ -4,6 +4,7 @@
 1) `create-react-app ph-view-react`
 1) `cd ph-view-react`
 1) `npm install @mui/material @emotion/react @emotion/styled`
+1) Set `"target": "es6",` in `tsconfig.json`
 
 [*See Material-UI...*](https://mui.com/material-ui/getting-started/installation/)
 
