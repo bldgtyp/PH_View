@@ -1,0 +1,10 @@
+.content-block{
+    margin: 25px;
+    padding: 25px;
+}
+
+.content-block-heading{
+    text-align: left;
+    margin-bottom: 25px;
+    text-transform: uppercase ;
+}

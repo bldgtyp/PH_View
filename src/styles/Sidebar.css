@@ -1,0 +1,13 @@
+.sidebar-container {
+    background: white;
+    text-align: left;
+    padding: 20px;
+    width: 250px;
+    height: 100%;
+    box-shadow: rgba(95, 116, 141, 0.03) 0px 3px 4px -2px, rgba(95, 116, 141, 0.04) 0px 3px 8px 0px, rgba(95, 116, 141, 0.08) 0px 1px 19px 0px;
+}
+
+.sidebar-group {
+    background: white;
+    text-align: left;
+}
