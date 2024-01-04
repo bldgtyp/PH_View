@@ -7,7 +7,7 @@ import { ReactComponent as FanIcon } from "../icons/sidebar/fans.svg";
 import { ReactComponent as PumpIcon } from "../icons/sidebar/pumps.svg";
 import { ReactComponent as VentilatorIcon } from "../icons/sidebar/ventilators.svg";
 import { ReactComponent as LightIcon } from "../icons/sidebar/lighting.svg";
-import { ReactComponent as ApplianceIcon } from "../icons/sidebar/appliances.svg";
+// import { ReactComponent as ApplianceIcon } from "../icons/sidebar/appliances.svg";
 import { ReactComponent as MaterialIcon } from "../icons/sidebar/material.svg";
 import { ReactComponent as ConstructionIcon } from "../icons/sidebar/constructions.svg";
 
