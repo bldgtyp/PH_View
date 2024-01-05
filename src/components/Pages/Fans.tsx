@@ -1,7 +1,7 @@
 import Page from "./Page";
 import ContentBlock from "../ContentBlock";
 import { Stack } from "@mui/material";
-import FanDataGrid from "../FanDataGrid";
+import FanDataGrid from "../Tables/FanDataGrid";
 
 function Fans() {
   return (

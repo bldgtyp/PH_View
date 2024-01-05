@@ -1,5 +1,5 @@
 import Page from "./Page";
-import ErvDataGrid from "../ErvDataGrid";
+import ErvDataGrid from "../Tables/ErvDataGrid";
 import ContentBlock from "../ContentBlock";
 import { Stack } from "@mui/material";
 

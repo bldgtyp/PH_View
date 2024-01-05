@@ -1,3 +1,11 @@
 export const apiUrlBase = process.env.REACT_APP_API_URL || "https://ph-view.onrender.com/";
+export const apiUrlGlazingTypes = apiUrlBase + "glazing_types";
+export const apiUrlFrameTypes = apiUrlBase + "frame_types";
+export const apiUrlWindowUnitTypes = apiUrlBase + "window_unit_types";
 export const apiUrlErvUnits = apiUrlBase + "erv_units";
 export const apiUrlFans = apiUrlBase + "fans";
+export const apiUrlPumps = apiUrlBase + "pumps";
+export const apiUrlLighting = apiUrlBase + "lighting";
+export const apiUrlAppliances = apiUrlBase + "appliances";
+export const apiUrlMaterials = apiUrlBase + "materials";
+export const apiUrlConstructions = apiUrlBase + "constructions";

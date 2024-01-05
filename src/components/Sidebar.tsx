@@ -21,7 +21,7 @@ function Sidebar() {
           </Typography>
           <SidebarItem text="Glazing Types" to="glazing-types" icon={GlazingTypeIcon} />
           <SidebarItem text="Frame Types" to="frame-types" icon={FrameTypeIcon} />
-          <SidebarItem text="Unit Types" to="unit-types" icon={UnitTypeIcon} />
+          <SidebarItem text="Unit Types" to="window-unit-types" icon={UnitTypeIcon} />
         </Stack>
       </Paper>
       <Paper elevation={1} className="sidebar-group">

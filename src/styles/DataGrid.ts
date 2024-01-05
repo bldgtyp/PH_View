@@ -36,11 +36,41 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   '& .MuiPaginationItem-root': {
     borderRadius: 0,
   },
-  '& .have-doc-checkbox:not(:checked)': {
-    // outline: '2px solid red',
-    // outline: '1px solid red',
-    // boxShadow: '2px solid red',
-    boxShadow: 'inset 0 0 0.2em 0.1em red, 0 0 0.4em 0.1em red',
+  '& .checkbox:not(:checked)': {
+    boxShadow: 'inset 0 0 0.2em 0.1em red, 0 0 0.5em 0.1em red',
+  },
+  '& .checkbox-needed': {
+    boxShadow: 'inset 0 0 0.2em 0.1em red, 0 0 0.5em 0.1em red',
+  },
+  '& .checkbox-question': {
+    color: 'red',
+    boxShadow: 'inset 0 0 0.05em 0.05em red, 0 0 0.5em 0.05em red',
+    textAlign: 'center', // center the text
+    lineHeight: '14px', // adjust this to vertically center the text
+    fontSize: '10px', // set the size of the text
+    fontWeight: 'bold', // make sure it's bold  
+
+    '&::after': {
+      content: '"?"', // add a "?" inside the checkbox
+    },
+  },
+  '& .checkbox-na':  {
+    position: 'relative',
+    boxShadow: 'inset 0 0 0.2em 0.1em lightgrey',
+  
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      top: '50%',
+      left: '0',
+      width: '100%',
+      height: '2px',
+      backgroundColor: 'lightgrey',
+      transform: 'rotate(-45deg)',
+    },
+  },
+  '& .critical-info-icon': {
+    color: 'red',
   },
   theme,
 }));
