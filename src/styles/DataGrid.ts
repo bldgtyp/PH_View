@@ -36,40 +36,78 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   '& .MuiPaginationItem-root': {
     borderRadius: 0,
   },
-  '& .checkbox:not(:checked)': {
-    boxShadow: 'inset 0 0 0.2em 0.1em red, 0 0 0.5em 0.1em red',
-  },
-  '& .checkbox-needed': {
-    boxShadow: 'inset 0 0 0.2em 0.1em red, 0 0 0.5em 0.1em red',
-  },
-  '& .checkbox-question': {
-    color: 'red',
-    boxShadow: 'inset 0 0 0.05em 0.05em red, 0 0 0.5em 0.05em red',
-    textAlign: 'center', // center the text
-    lineHeight: '14px', // adjust this to vertically center the text
-    fontSize: '10px', // set the size of the text
-    fontWeight: 'bold', // make sure it's bold  
-
+  // Make custom checkboxes that will work in Firefox as well as Chrome.
+  // regular checkboxes don't work in Firefox.
+  '& .checkbox-checked': {
+    display: "inline-block",
+    width:" 1.25em",
+    height: "1.25em",
+    marginRight: "0.5em",
+    border: "1px solid grey",
+    verticalAlign: "text-bottom",
+    borderRadius: "3px",
+    background: "green",
     '&::after': {
-      content: '"?"', // add a "?" inside the checkbox
+      position: 'relative',
+      top: '-10%',
+      content: '"\u2714"', // Heavy Check Mark
+      color: "white",
     },
   },
-  '& .checkbox-na':  {
+  '& .checkbox-na': {
     position: 'relative',
+    display: "inline-block",
+    width:" 1.25em",
+    height: "1.25em",
+    marginRight: "0.5em",
+    border: "1px solid lightgrey",
+    verticalAlign: "text-bottom",
     boxShadow: 'inset 0 0 0.2em 0.1em lightgrey',
-  
     '&::after': {
       content: '""',
       position: 'absolute',
       top: '50%',
       left: '0',
       width: '100%',
-      height: '2px',
+      height: '1px',
       backgroundColor: 'lightgrey',
       transform: 'rotate(-45deg)',
     },
   },
+  '& .checkbox-needed': {
+    display: "inline-block",
+    width:" 1.25em",
+    height: "1.25em",
+    marginRight: "0.5em",
+    border: "1px solid red",
+    borderRadius: "3px",
+    verticalAlign: "text-bottom",
+    boxShadow: "inset 0 0 0.1em 0.05em red, 0 0 0.4em 0.01em red",
+  },
+  '& .checkbox-question': {
+    position: 'relative',
+    display: "inline-block",
+    width:" 1.25em",
+    height: "1.25em",
+    marginRight: "0.5em",
+    border: "0.5px solid red",
+    borderRadius: "3px",
+    verticalAlign: "text-bottom",
+    boxShadow: "inset 0 0 0.05em 0.02em red, 0 0 0.4em 0.01em red",
+    backgroundColor: "red",
+    opacity: 0.6,
+    '&::after': {
+      content: '"?"',
+      color: "white",
+      position: 'relative',
+      top: '-20%',
+      fontWeight: "bold",
+    },
+  },
   '& .critical-info-icon': {
+    color: 'red',
+  },
+  '& .notes-icon': {
     color: 'red',
   },
   theme,

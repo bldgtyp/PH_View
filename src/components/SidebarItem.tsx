@@ -20,14 +20,23 @@ function ListItemLink(props: ListItemLinkProps) {
   const { text, to, icon: Icon } = props;
 
   return (
-    <div>
-      <ListItemButton component={Link} to={to}>
+    <>
+      <ListItemButton
+        sx={{
+          marginTop: 0,
+          paddingTop: "6px",
+          paddingBottom: "6px",
+        }}
+        className="sidebar-item"
+        component={Link}
+        to={to}
+      >
         <ListItemIcon>
           <Icon className="sidebar-icon" />
         </ListItemIcon>
         <ListItemText primary={text} />
       </ListItemButton>
-    </div>
+    </>
   );
 }
 

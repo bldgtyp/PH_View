@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
-import { TooltipHeader, datasheetCheckbox, LinkCell, InfoTooltipCell, specificationCheckbox } from "./DataGridItems";
+import {
+  notesCell,
+  datasheetRequired,
+  TooltipHeader,
+  datasheetCheckbox,
+  LinkCell,
+  InfoTooltipCell,
+  specificationCheckbox,
+} from "./DataGridItems";
 import fetchData from "../fetchAirTable";
 import { apiUrlLighting } from "../../config";
 import { generateGridColumns, generateDefaultRow } from "./DataGridItems";
@@ -18,6 +26,7 @@ type LightingFields = {
   DATA_SHEET: string;
   LINK: string;
   NOTES: string;
+  FLAG: string;
 };
 
 type LightingRecord = { id: string; createdTime: string; fields: LightingFields };
@@ -30,6 +39,12 @@ const tableFields = [
     headerName: "ID",
     flex: 1,
     renderCell: (params: any) => InfoTooltipCell(params),
+  },
+  {
+    field: "notes",
+    headerName: "Notes",
+    flex: 0.5,
+    renderCell: (params: any) => notesCell(params),
   },
   {
     field: "specification",
@@ -66,23 +81,44 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function LightingDataGrid() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  let timerId: NodeJS.Timeout;
   const [rowData, setRowData] = useState<Array<LightingRecord>>(defaultRow);
 
   useEffect(() => {
+    setIsLoading(true);
+    // Show modal if loading takes longer than 250ms
+    timerId = setTimeout(() => {
+      setShowModal(true);
+    }, 500);
+
+    // Fetch the data from AirTable
     fetchData(apiUrlLighting).then((fetchedData) => {
-      const newRows = fetchedData.map((item: any) => ({
-        id: item.id,
-        identifier: item.fields.DISPLAY_NAME,
-        specification: item.fields.SPECIFICATION,
-        data_sheet: item.fields.DATA_SHEET,
-        link: item.fields.LINK,
-        notes: item.fields.NOTES,
-        watts: item.fields.WATTS,
-        lumens: item.fields.LUMENS,
-        energy_star: item.fields.ENERGY_STAR,
-        zone: item.fields.ZONE,
-      }));
+      const newRows = fetchedData.map((item: any) => {
+        item = datasheetRequired(item);
+        return {
+          id: item.id,
+          identifier: item.fields.DISPLAY_NAME,
+          watts: item.fields.WATTS,
+          lumens: item.fields.LUMENS,
+          energy_star: item.fields.ENERGY_STAR,
+          zone: item.fields.ZONE,
+          link: item.fields.LINK,
+          specification: item.fields.SPECIFICATION,
+          data_sheet: item.fields.DATA_SHEET,
+          notes: item.fields.NOTES,
+          flag: item.fields.FLAG,
+        };
+      });
+
+      // Cleanup
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
+      setIsLoading(false);
+      clearTimeout(timerId); // Cancel the timeout
+      setTimeout(() => {
+        setShowModal(false);
+      }, 1000);
     });
   }, []);
 
@@ -90,6 +126,12 @@ function LightingDataGrid() {
   // Render the component
   return (
     <>
+      {" "}
+      {showModal ? (
+        <Modal open={showModal}>
+          <Box className="modal-box-loading">Loading Project Data...</Box>
+        </Modal>
+      ) : null}
       <Stack className="content-block-heading" spacing={1}>
         <h3>Lighting Fixtures:</h3>
       </Stack>

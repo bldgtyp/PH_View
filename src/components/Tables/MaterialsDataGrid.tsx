@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { Box, Stack } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import {
+  notesCell,
+  datasheetRequired,
   TooltipHeader,
   specificationCheckbox,
+  datasheetCheckbox,
   LinkCell,
   InfoTooltipCell,
   generateGridColumns,
@@ -18,8 +21,11 @@ type MaterialsFields = {
   DISPLAY_NAME: string;
   LAYER_MATERIAL_NAME: string;
   "MATERIAL RESISTIVITY [HR-FT2-F / BTU-IN]": number;
-  DATA_SHEET: string;
+  LINK: string;
+  SPECIFICATION: string;
+  DATA_SHEET?: [{ url: string; required: boolean }];
   NOTES: string;
+  FLAG: string;
 };
 
 type MaterialsRecord = { id: string; createdTime: string; fields: MaterialsFields };
@@ -34,19 +40,34 @@ const tableFields = [
     renderCell: (params: any) => InfoTooltipCell(params),
   },
   {
-    field: "r_value",
-    headerName: "R/Inch Value",
+    field: "notes",
+    headerName: "Notes",
+    flex: 0.5,
+    renderCell: (params: any) => notesCell(params),
+  },
+
+  {
+    field: "specification",
+    headerName: "specification",
     flex: 1,
-    renderHeader: (params: any) => TooltipHeader(params, "Do we have a product specification? Yes/No"),
-    renderCell: (params: any) => parseFloat(params.value).toFixed(1),
+    renderCell: (params: any) => specificationCheckbox(params),
+    renderHeader: (params: any) =>
+      TooltipHeader(params, "Do we have a PDF data-sheet with the product's performance values? Yes/No"),
   },
   {
     field: "data_sheet",
     headerName: "Data Sheet",
     flex: 1,
-    renderCell: (params: any) => specificationCheckbox(params),
+    renderCell: (params: any) => datasheetCheckbox(params),
     renderHeader: (params: any) =>
       TooltipHeader(params, "Do we have a PDF data-sheet with the product's performance values? Yes/No"),
+  },
+  {
+    field: "r_value",
+    headerName: "R/Inch Value",
+    flex: 1,
+    renderHeader: (params: any) => TooltipHeader(params, "Do we have a product specification? Yes/No"),
+    renderCell: (params: any) => parseFloat(params.value).toFixed(1),
   },
   {
     field: "link",
@@ -80,13 +101,19 @@ function MaterialsDataGrid() {
         return acc;
       }, []);
 
-      const newRows = mergedData.map((item: any) => ({
-        id: item.id,
-        identifier: item.fields.LAYER_MATERIAL_NAME,
-        r_value: item.fields["MATERIAL RESISTIVITY [HR-FT2-F / BTU-IN]"],
-        data_sheet: item.fields.DATA_SHEET,
-        notes: item.fields.NOTES,
-      }));
+      const newRows = mergedData.map((item: { id: string; fields: MaterialsFields }) => {
+        item = datasheetRequired(item);
+        return {
+          id: item.id,
+          identifier: item.fields.LAYER_MATERIAL_NAME,
+          r_value: item.fields["MATERIAL RESISTIVITY [HR-FT2-F / BTU-IN]"],
+          link: item.fields.LINK,
+          specification: item.fields.SPECIFICATION,
+          data_sheet: item.fields.DATA_SHEET,
+          notes: item.fields.NOTES,
+          flag: item.fields.FLAG,
+        };
+      });
 
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
     });

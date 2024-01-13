@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
+import "../../styles/Modal.css";
 import {
+  notesCell,
+  datasheetRequired,
   TooltipHeader,
   datasheetCheckbox,
   LinkCell,
@@ -22,10 +25,11 @@ type GlazingTypesFields = {
   MODEL: string;
   "G-VALUE [%]": number;
   "U-VALUE [BTU/HR-FT2-F]": number;
-  SPECIFICATION: boolean;
-  DATA_SHEET: string;
   LINK: string;
+  DATA_SHEET: string;
+  SPECIFICATION: boolean;
   NOTES: string;
+  FLAG: string;
 };
 
 type GlazingTypesRecord = { id: string; createdTime: string; fields: GlazingTypesFields };
@@ -39,11 +43,17 @@ const tableFields = [
     renderCell: (params: any) => InfoTooltipCell(params),
   },
   {
+    field: "notes",
+    headerName: "Notes",
+    flex: 0.5,
+    renderCell: (params: any) => notesCell(params),
+  },
+  {
     field: "specification",
     headerName: "Specification",
     flex: 1,
     renderCell: (params: any) => specificationCheckbox(params),
-    renderHeader: (params: any) => TooltipHeader(params, "Do we have a product specification? Yes/No"),
+    renderHeader: (params: any) => TooltipHeader(params, "Is the product clearly specification in the drawings?"),
   },
   {
     field: "data_sheet",
@@ -72,29 +82,56 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function GlazingTypesDataGrid() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  let timerId: NodeJS.Timeout;
   const [rowData, setRowData] = useState<Array<GlazingTypesRecord>>(defaultRow);
 
   useEffect(() => {
+    setIsLoading(true);
+    // Show modal if loading takes longer than 250ms
+    timerId = setTimeout(() => {
+      setShowModal(true);
+    }, 500);
+
+    // Fetch the data from AirTable
     fetchData(apiUrlGlazingTypes).then((fetchedData) => {
-      const newRows = fetchedData.map((item: any) => ({
-        id: item.id,
-        identifier: item.fields.DISPLAY_NAME,
-        specification: item.fields.SPECIFICATION,
-        data_sheet: item.fields.DATA_SHEET,
-        link: item.fields.LINK,
-        u_value: item.fields["U-VALUE [BTU/HR-FT2-F]"],
-        g_value: item.fields["G-VALUE [%]"],
-        manufacturer: item.fields.MANUFACTURER,
-        model: item.fields.MODEL,
-        notes: item.fields.NOTES,
-      }));
+      const newRows = fetchedData.map((item: { id: string; fields: GlazingTypesFields }) => {
+        item = datasheetRequired(item);
+        return {
+          id: item.id,
+          identifier: item.fields.DISPLAY_NAME,
+          u_value: item.fields["U-VALUE [BTU/HR-FT2-F]"],
+          g_value: item.fields["G-VALUE [%]"],
+          manufacturer: item.fields.MANUFACTURER,
+          model: item.fields.MODEL,
+          link: item.fields.LINK,
+          specification: item.fields.SPECIFICATION,
+          data_sheet: item.fields.DATA_SHEET,
+          notes: item.fields.NOTES,
+          flag: item.fields.FLAG,
+        };
+      });
+
+      // ---Cleanup
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
+      setIsLoading(false);
+      clearTimeout(timerId); // Cancel the timeout
+      setTimeout(() => {
+        setShowModal(false);
+      }, 1000);
     });
   }, []);
   // --------------------------------------------------------------------------
   // Render the component
+
   return (
     <>
+      {showModal ? (
+        <Modal open={showModal}>
+          <Box className="modal-box-loading">Loading Project Data...</Box>
+        </Modal>
+      ) : null}
       <Stack className="content-block-heading" spacing={1}>
         <h3>Window Glazing Types:</h3>
       </Stack>

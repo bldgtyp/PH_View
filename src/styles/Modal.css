@@ -1,0 +1,12 @@
+.modal-box-loading {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:25%;
+    height:25%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+}

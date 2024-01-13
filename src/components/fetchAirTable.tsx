@@ -3,13 +3,16 @@
  * @param apiUrl The URL of the API to fetch data from.
  * @returns A Promise that resolves to the fetched data.
  */
-async function fetchData(apiUrl: string): Promise<any> {
+async function fetchData(apiUrl: string): Promise<Record<any, any>> {
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
+
+    // await new Promise((resolve) => setTimeout(resolve, 3000)); //<---
+
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);

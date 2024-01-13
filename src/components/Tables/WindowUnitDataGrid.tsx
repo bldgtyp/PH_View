@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
-import { InfoTooltipCell, generateGridColumns, generateDefaultRow } from "./DataGridItems";
+import { notesCell, InfoTooltipCell, generateGridColumns, generateDefaultRow } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
 import { apiUrlWindowUnitTypes } from "../../config";
 
@@ -31,6 +31,12 @@ const tableFields = [
     flex: 1,
     renderCell: (params: any) => InfoTooltipCell(params),
   },
+  {
+    field: "notes",
+    headerName: "Notes",
+    flex: 0.5,
+    renderCell: (params: any) => notesCell(params),
+  },
   { field: "width", headerName: "Width", flex: 1 },
   { field: "height", headerName: "Height", flex: 1 },
   { field: "operation", headerName: "Operation", flex: 1 },
@@ -50,9 +56,19 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function WindowUnitDataGrid() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  let timerId: NodeJS.Timeout;
   const [rowData, setRowData] = useState<Array<WindowUnitTypesRecord>>(defaultRow);
 
   useEffect(() => {
+    setIsLoading(true);
+    // Show modal if loading takes longer than 250ms
+    timerId = setTimeout(() => {
+      setShowModal(true);
+    }, 500);
+
+    // Fetch the data from AirTable
     fetchData(apiUrlWindowUnitTypes).then((fetchedData) => {
       const newRows = fetchedData.map((item: any) => ({
         id: item.id,
@@ -67,7 +83,14 @@ function WindowUnitDataGrid() {
         frame_top: item.fields["FRAME ELEMENT NAME: TOP"],
         frame_bottom: item.fields["FRAME ELEMENT NAME: BOTTOM"],
       }));
+
+      // ---Cleanup
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
+      setIsLoading(false);
+      clearTimeout(timerId); // Cancel the timeout
+      setTimeout(() => {
+        setShowModal(false);
+      }, 1000);
     });
   }, []);
 
@@ -75,6 +98,11 @@ function WindowUnitDataGrid() {
   // Render the component
   return (
     <>
+      {showModal ? (
+        <Modal open={showModal}>
+          <Box className="modal-box-loading">Loading Project Data...</Box>
+        </Modal>
+      ) : null}
       <Stack className="content-block-heading" spacing={1}>
         <h3>Window Unit Types:</h3>
       </Stack>

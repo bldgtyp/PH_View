@@ -1,4 +1,5 @@
 export const apiUrlBase = process.env.REACT_APP_API_URL || "https://ph-view.onrender.com/";
+export const apiUrlCertResult = apiUrlBase + "cert_results";
 export const apiUrlGlazingTypes = apiUrlBase + "glazing_types";
 export const apiUrlFrameTypes = apiUrlBase + "frame_types";
 export const apiUrlWindowUnitTypes = apiUrlBase + "window_unit_types";

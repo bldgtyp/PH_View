@@ -14,21 +14,44 @@ function RequiredDocumentation() {
         <ul>
           <li>
             <Stack spacing={1} direction="row">
-              <h4>Product DataSheet:</h4>
-              <p>A PDF for the specified product which includes the required performance values.</p>
-            </Stack>
-          </li>
-          <li>
-            <Stack spacing={1} direction="row">
-              <h4>Design-Phase Specification:</h4>
+              <h4>Product Specification:</h4>
               <p>A product specification included in the drawing-set which is used as the basis-of-design.</p>
             </Stack>
           </li>
           <li>
             <Stack spacing={1} direction="row">
-              <h4>Final Specification:</h4>
-              <p>a product specification for the final as-built (purchased) unit.</p>
+              <h4>Product Data Sheet:</h4>
+              <p>A PDF datasheet for the specified product which includes all of the required performance values:</p>
             </Stack>
+            <ul>
+              <li>Heat-Recovery Efficiency (%)</li>
+              <li>Moisture-Recovery Efficiency (%)</li>
+              <li>Average Fan-Power (W/cfm)</li>
+              <li>Outside Air Filter Type</li>
+              <li>Extract Air Filter Type</li>
+            </ul>
+          </li>
+          <li>
+            <Stack spacing={1} direction="row">
+              <h4>Acceptable Testing Protocols:</h4>
+            </Stack>
+            <ol>
+              <li>
+                <a href="https://www.ahrinet.org/search-standards/ahri-1060-i-p-and-1061-si-performance-rating-air-air-exchangers-energy-recovery-ventilation">
+                  AHRI 1060 Certificate
+                </a>
+              </li>
+              <li>
+                <a href="https://www.hvi.org/resources/publications/home-ventilation-guide-articles/hvi-certified-ventilation-performance/">
+                  HVI Test Certificate
+                </a>
+              </li>
+              <li>
+                <a href="https://passivehouse.com/01_passivehouseinstitute/02_expertise/01_researchinbuildingphysics/03_Ventilationsystems/03_Ventilationsystems.html">
+                  PHI Test Certificate
+                </a>
+              </li>
+            </ol>
           </li>
         </ul>
       </Stack>

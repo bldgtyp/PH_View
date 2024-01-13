@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import {
+  notesCell,
+  datasheetRequired,
   TooltipHeader,
   datasheetCheckbox,
   LinkCell,
@@ -28,10 +30,11 @@ type FanFields = {
   HP: number;
   "AMPS [A]": number;
   "ENERGY DEMAND [W]": number;
+  LINK: string;
   SPECIFICATION: boolean;
   DATA_SHEET: string;
-  LINK: string;
   NOTES: string;
+  FLAG: string;
 };
 
 type FanRecord = { id: string; createdTime: string; fields: FanFields };
@@ -39,7 +42,18 @@ type FanRecord = { id: string; createdTime: string; fields: FanFields };
 // ----------------------------------------------------------------------------
 // Define the table columns and rows to display
 const tableFields = [
-  { field: "identifier", headerName: "ID", flex: 1, renderCell: (params: any) => InfoTooltipCell(params) },
+  {
+    field: "identifier",
+    headerName: "ID",
+    flex: 1,
+    renderCell: (params: any) => InfoTooltipCell(params),
+  },
+  {
+    field: "notes",
+    headerName: "Notes",
+    flex: 0.5,
+    renderCell: (params: any) => notesCell(params),
+  },
   {
     field: "specification",
     headerName: "Specification",
@@ -69,23 +83,44 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function FanDataGrid() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  let timerId: NodeJS.Timeout;
   const [rowData, setRowData] = useState<Array<FanRecord>>(defaultRow);
 
   useEffect(() => {
+    setIsLoading(true);
+    // Show modal if loading takes longer than 250ms
+    timerId = setTimeout(() => {
+      setShowModal(true);
+    }, 500);
+
+    // Fetch the data from AirTable
     fetchData(apiUrlFans).then((fetchedData) => {
-      const newRows = fetchedData.map((item: any) => ({
-        id: item.id,
-        identifier: item.fields.ID_NUMBER,
-        specification: item.fields.SPECIFICATION,
-        data_sheet: item.fields.DATA_SHEET,
-        name: item.fields.DISPLAY_NAME,
-        manufacturer: item.fields.MANUFACTURER,
-        model: item.fields.MODEL,
-        service: item.fields.SERVICE,
-        link: item.fields.LINK,
-        notes: item.fields.NOTES,
-      }));
+      const newRows = fetchedData.map((item: any) => {
+        item = datasheetRequired(item);
+        return {
+          id: item.id,
+          identifier: item.fields.ID_NUMBER,
+          name: item.fields.DISPLAY_NAME,
+          manufacturer: item.fields.MANUFACTURER,
+          model: item.fields.MODEL,
+          service: item.fields.SERVICE,
+          link: item.fields.LINK,
+          specification: item.fields.SPECIFICATION,
+          data_sheet: item.fields.DATA_SHEET,
+          notes: item.fields.NOTES,
+          flag: item.fields.FLAG,
+        };
+      });
+
+      // Cleanup
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
+      setIsLoading(false);
+      clearTimeout(timerId); // Cancel the timeout
+      setTimeout(() => {
+        setShowModal(false);
+      }, 1000);
     });
   }, []);
 
@@ -93,6 +128,12 @@ function FanDataGrid() {
   // Render the component
   return (
     <>
+      {" "}
+      {showModal ? (
+        <Modal open={showModal}>
+          <Box className="modal-box-loading">Loading Project Data...</Box>
+        </Modal>
+      ) : null}
       <Stack className="content-block-heading" spacing={1}>
         <h3>Fans:</h3>
       </Stack>
