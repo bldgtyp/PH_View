@@ -44,7 +44,7 @@ export function prepareDataForPlot(data: any[]) {
   // ]
   const dataByDatedResult = datedResultsKeys.map((key) => {
     const newItem: any = {};
-    const [date, ...rest] = key.split("_"); // Fix the X-Axis...
+    const [date] = key.split("_"); // Fix the X-Axis...
     newItem["plot"] = date;
     data.forEach((item) => {
       newItem[item.display_name] = item[key];

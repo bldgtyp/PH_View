@@ -159,7 +159,7 @@ function createLoadLimits(heatingData: any[], coolingData: any[]) {
 // ----------------------------------------------------------------------------
 function CertResultDataGrid() {
   // RowData to Plot --
-  const [siteEnergyRowData, setSiteEnergyData] = useState<Array<DataGridRow>>(defaultRow);
+  // const [siteEnergyRowData, setSiteEnergyData] = useState<Array<DataGridRow>>(defaultRow);
   const [sourceEnergyRowData, setSourceEnergyData] = useState<Array<DataGridRow>>(defaultRow);
   const [heatingDemandRowData, setHeatingDemandData] = useState<Array<DataGridRow>>(defaultRow);
   const [coolingDemandRowData, setCoolingDemandData] = useState<Array<DataGridRow>>(defaultRow);
@@ -198,7 +198,7 @@ function CertResultDataGrid() {
       // ----------------------------------------------------------------------
       // Build all of the new Rows
       // ----------------------------------------------------------------------
-      const newSiteEnergyRows: DataGridRow[] = createRowDataArray(siteEnergyData);
+      // const newSiteEnergyRows: DataGridRow[] = createRowDataArray(siteEnergyData);
       const newSourceEnergyRows: DataGridRow[] = createRowDataArray(sourceEnergyData);
       const newHeatingDemandRows: DataGridRow[] = createRowDataArray(heatingDemandData);
       const newCoolingDemandRows: DataGridRow[] = createRowDataArray(coolingDemandData);
@@ -208,7 +208,7 @@ function CertResultDataGrid() {
       // ----------------------------------------------------------------------
       // Set the row state
       // ----------------------------------------------------------------------
-      newSiteEnergyRows.length > 0 ? setSiteEnergyData(newSiteEnergyRows) : setSiteEnergyData(defaultRow);
+      // newSiteEnergyRows.length > 0 ? setSiteEnergyData(newSiteEnergyRows) : setSiteEnergyData(defaultRow);
       newSourceEnergyRows.length > 0 ? setSourceEnergyData(newSourceEnergyRows) : setSourceEnergyData(defaultRow);
       newHeatingDemandRows.length > 0 ? setHeatingDemandData(newHeatingDemandRows) : setHeatingDemandData(defaultRow);
       newCoolingDemandRows.length > 0 ? setCoolingDemandData(newCoolingDemandRows) : setCoolingDemandData(defaultRow);

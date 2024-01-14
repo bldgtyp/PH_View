@@ -1,15 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
-import {
-  notesCell,
-  TooltipHeader,
-  specificationCheckbox,
-  LinkCell,
-  InfoTooltipCell,
-  generateGridColumns,
-  generateDefaultRow,
-} from "./DataGridItems";
+import { notesCell, TooltipHeader, InfoTooltipCell, generateGridColumns, generateDefaultRow } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
 import { apiUrlPumps } from "../../config";
 

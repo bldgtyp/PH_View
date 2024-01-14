@@ -36,7 +36,7 @@ function ResultDataGrid(props: { title: string; rowData: DataGridRow[] }) {
   useEffect(() => {
     // Add in the user-determined result columns, if any
     if (props.rowData.length > 0) {
-      for (const [newKey, value] of Object.entries(props.rowData[0])) {
+      for (const [newKey] of Object.entries(props.rowData[0])) {
         if (newKey.includes("RESULT")) {
           // Make sure not to duplicate any columns
           const tableExistingColumnNames = tableFields.map((item) => item.key);
@@ -47,7 +47,7 @@ function ResultDataGrid(props: { title: string; rowData: DataGridRow[] }) {
               headerName: newKey,
               flex: 1,
               renderCell: (num: any) => {
-                if (num.row[newKey] != undefined) {
+                if (num.row[newKey] !== undefined) {
                   return <>{num.row[newKey].toLocaleString()}</>;
                 } else {
                   return <></>;

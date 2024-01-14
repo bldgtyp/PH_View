@@ -129,7 +129,7 @@ function specificationCheckboxStyle(value?: string) {
 }
 
 export const specificationCheckbox = (params: { value?: string; row: any }) => {
-  const { checked, style } = specificationCheckboxStyle(params.value);
+  const { style } = specificationCheckboxStyle(params.value);
   return (
     <Tooltip title={params.row.flag}>
       <div className={style} />
