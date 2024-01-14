@@ -81,14 +81,94 @@ function createRowDataArray(data: CertResultFields[]) {
   });
 }
 
+const defaultLimits = {
+  total: 0,
+  heating: 0,
+  cooling: 0,
+};
+
+function createAnnualEnergyLimits(sourceEnergyData: any[]) {
+  // Pull out the "PHIUS_LIMIT" value from the "TOTAL [GROSS]" record
+  let totalLimit: any = 0;
+  const totalEnergyRecord: CertResultRecord[] = sourceEnergyData.filter(
+    (item: CertResultRecord) => item.fields.DISPLAY_NAME === "TOTAL [GROSS]"
+  );
+  if (totalEnergyRecord && totalEnergyRecord.length > 0 && totalEnergyRecord[0].fields) {
+    totalLimit = totalEnergyRecord[0].fields.PHIUS_LIMIT;
+  }
+
+  return {
+    total: totalLimit,
+    heating: 0,
+    cooling: 0,
+  };
+}
+
+function createDemandLimits(heatingData: any[], coolingData: any[]) {
+  // Pull out the "PHIUS_LIMIT" value from the "HEAT DEMAND" record
+  let heatingLimit: any = 0;
+  const heatingDemandRecord: CertResultRecord[] = heatingData.filter(
+    (item: CertResultRecord) => item.fields.DISPLAY_NAME === "HEAT DEMAND"
+  );
+  if (heatingDemandRecord && heatingDemandRecord.length > 0 && heatingDemandRecord[0].fields) {
+    heatingLimit = heatingDemandRecord[0].fields.PHIUS_LIMIT;
+  }
+
+  // Pull out the "PHIUS_LIMIT" value from the "COOLING DEMAND" record
+  let coolingLimit: any = 0;
+  const coolingDemandRecord: CertResultRecord[] = coolingData.filter(
+    (item: CertResultRecord) => item.fields.DISPLAY_NAME === "COOLING DEMAND [TOTAL]"
+  );
+  if (coolingDemandRecord && coolingDemandRecord.length > 0 && coolingDemandRecord[0].fields) {
+    coolingLimit = coolingDemandRecord[0].fields.PHIUS_LIMIT;
+  }
+
+  return {
+    total: 0,
+    heating: heatingLimit,
+    cooling: coolingLimit,
+  };
+}
+
+function createLoadLimits(heatingData: any[], coolingData: any[]) {
+  // Pull out the "PHIUS_LIMIT" value from the "PEAK HEAT LOAD" record
+  let heatingLimit: any = 0;
+  const heatingLoadRecord: CertResultRecord[] = heatingData.filter(
+    (item: CertResultRecord) => item.fields.DISPLAY_NAME === "PEAK HEAT LOAD"
+  );
+  if (heatingLoadRecord && heatingLoadRecord.length > 0 && heatingLoadRecord[0].fields) {
+    heatingLimit = heatingLoadRecord[0].fields.PHIUS_LIMIT;
+  }
+
+  // Pull out the "PHIUS_LIMIT" value from the "PEAK COOLING LOAD [TOTAL]" record
+  let coolingLimit: any = 0;
+  const coolingLoadRecord: CertResultRecord[] = coolingData.filter(
+    (item: CertResultRecord) => item.fields.DISPLAY_NAME === "PEAK COOLING LOAD [TOTAL]"
+  );
+  if (coolingLoadRecord && coolingLoadRecord.length > 0 && coolingLoadRecord[0].fields) {
+    coolingLimit = coolingLoadRecord[0].fields.PHIUS_LIMIT;
+  }
+
+  return {
+    total: 0,
+    heating: heatingLimit,
+    cooling: coolingLimit,
+  };
+}
+
 // ----------------------------------------------------------------------------
 function CertResultDataGrid() {
+  // RowData to Plot --
   const [siteEnergyRowData, setSiteEnergyData] = useState<Array<DataGridRow>>(defaultRow);
   const [sourceEnergyRowData, setSourceEnergyData] = useState<Array<DataGridRow>>(defaultRow);
   const [heatingDemandRowData, setHeatingDemandData] = useState<Array<DataGridRow>>(defaultRow);
   const [coolingDemandRowData, setCoolingDemandData] = useState<Array<DataGridRow>>(defaultRow);
   const [heatingLoadRowData, setHeatingLoadData] = useState<Array<DataGridRow>>(defaultRow);
   const [coolingLoadRowData, setCoolingLoadData] = useState<Array<DataGridRow>>(defaultRow);
+  // Limits ---
+  const [sourceEnergyLimits, setSourceEnergyLimits] = useState<any>(defaultLimits);
+  const [demandLimits, setDemandLimits] = useState<any>(defaultLimits);
+  const [loadLimits, setLoadLimits] = useState<any>(defaultLimits);
 
   useEffect(() => {
     // Fetch the data from AirTable and build up the new DataGrid rows
@@ -134,24 +214,39 @@ function CertResultDataGrid() {
       newCoolingDemandRows.length > 0 ? setCoolingDemandData(newCoolingDemandRows) : setCoolingDemandData(defaultRow);
       newHeatingLoadRows.length > 0 ? setHeatingLoadData(newHeatingLoadRows) : setHeatingLoadData(defaultRow);
       newCoolingLoadRows.length > 0 ? setCoolingLoadData(newCoolingLoadRows) : setCoolingLoadData(defaultRow);
+
+      // ----------------------------------------------------------------------
+      // Set the 'Limits' for each of the graphs
+      // ----------------------------------------------------------------------
+      setSourceEnergyLimits(createAnnualEnergyLimits(sourceEnergyData));
+      setDemandLimits(createDemandLimits(heatingDemandData, coolingDemandData));
+      setLoadLimits(createLoadLimits(heatingLoadData, coolingLoadData));
     });
   }, []);
 
   // --------------------------------------------------------------------------
   // Render the component
+
   return (
     <>
       <ContentBlock>
         <Stack direction="row" spacing={3}>
-          <CertificationResultGraphs title="Annual Source Energy [kWh/a]" data={sourceEnergyRowData} variant="energy" />
           <CertificationResultGraphs
-            title="Annual Energy Demands [kBtu/a]"
-            data={[...heatingDemandRowData, ...coolingDemandRowData]}
+            title="Source Energy [kWh/a]"
+            plotData={sourceEnergyRowData}
+            limitData={sourceEnergyLimits}
+            variant="energy"
+          />
+          <CertificationResultGraphs
+            title="Energy Demand [kBtu/a]"
+            plotData={[...heatingDemandRowData, ...coolingDemandRowData]}
+            limitData={demandLimits}
             variant="demand"
           />
           <CertificationResultGraphs
             title="Peak Loads [Btu/h]"
-            data={[...heatingLoadRowData, ...coolingLoadRowData]}
+            plotData={[...heatingLoadRowData, ...coolingLoadRowData]}
+            limitData={loadLimits}
             variant="load"
           />
         </Stack>

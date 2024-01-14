@@ -2,6 +2,7 @@ import { Stack } from "@mui/material";
 import { GraphAnnualEnergy } from "./GraphAnnualEnergy";
 import { GraphAnnualDemand } from "./GraphDemand";
 import { GraphPeakLoad } from "./GraphPeakLoad";
+import { HighlightScope } from "@mui/x-charts";
 
 export type GraphProps = {
   key: string;
@@ -44,7 +45,8 @@ export function prepareDataForPlot(data: any[]) {
   // ]
   const dataByDatedResult = datedResultsKeys.map((key) => {
     const newItem: any = {};
-    newItem["plot"] = key;
+    const [date, ...rest] = key.split("_"); // Fix the X-Axis...
+    newItem["plot"] = date;
     data.forEach((item) => {
       newItem[item.display_name] = item[key];
     });
@@ -55,32 +57,70 @@ export function prepareDataForPlot(data: any[]) {
 }
 
 const chartSettings = {
-  height: 300,
-  margin: { top: 15, bottom: 100, left: 100, right: 15 },
+  colors: [
+    "#CB6D69", // Heating
+    "#82B2D9", // Cooling
+    "#d3d19d", // Green 1
+    "#a3c087", // Green 2
+    "#6ab07d", // Green 3
+    "#529c66", // Green 4
+    "#3b824e", // Green 5
+  ],
+  height: 350,
+  margin: { top: 5, bottom: 70, left: 70, right: 15 },
   tooltip: { trigger: "item" },
+  sx: {
+    "& .MuiChartsLegend-series text": { fontSize: "0.7em !important" },
+    "& .MuiChartsAxis-tickLabel": { fontSize: "0.6em !important" },
+    "& .MuiBarElement-root": {
+      stroke: "#fff",
+      strokeWidth: "1",
+    },
+  },
   slotProps: {
     legend: {
       direction: "row",
       position: { vertical: "bottom", horizontal: "middle" },
       padding: 0,
-      itemMarkWidth: 8,
-      itemMarkHeight: 8,
+      itemMarkWidth: 15,
+      itemMarkHeight: 10,
       markGap: 3,
-      itemGap: 3,
+      itemGap: 1,
     },
+  },
+  xAxis: [{ id: "xAxisBand", scaleType: "band", dataKey: "plot", categoryGapRatio: 0.3, barGapRatio: 0.1 }],
+  yAxis: [{ id: "yAxisLinear", scaleType: "linear" }],
+  leftAxis: {
+    axisId: "yAxisLinear",
+    disableTicks: true,
+  },
+  bottomAxis: {
+    axisId: "xAxisBand",
+    disableTicks: true,
   },
 };
 
-function CertificationResultGraphs(props: { title: string; variant: "energy" | "demand" | "load"; data: any[] }) {
+function CertificationResultGraphs(props: {
+  title: string;
+  variant: "energy" | "demand" | "load";
+  plotData: any[];
+  limitData: { heating: number; cooling: number; total: number };
+}) {
   return (
     <>
       <Stack direction="column" sx={{ width: "100%" }}>
         <Stack className="content-block-heading">
           <h3>{props.title}:</h3>
         </Stack>
-        {props.variant === "energy" && <GraphAnnualEnergy data={props.data} chartSettings={chartSettings} />}
-        {props.variant === "demand" && <GraphAnnualDemand data={props.data} chartSettings={chartSettings} />}
-        {props.variant === "load" && <GraphPeakLoad data={props.data} chartSettings={chartSettings} />}
+        {props.variant === "energy" && (
+          <GraphAnnualEnergy data={props.plotData} chartSettings={chartSettings} limitData={props.limitData} />
+        )}
+        {props.variant === "demand" && (
+          <GraphAnnualDemand data={props.plotData} chartSettings={chartSettings} limits={props.limitData} />
+        )}
+        {props.variant === "load" && (
+          <GraphPeakLoad data={props.plotData} chartSettings={chartSettings} limits={props.limitData} />
+        )}
       </Stack>
     </>
   );
