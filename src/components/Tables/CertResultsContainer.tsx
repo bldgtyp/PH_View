@@ -176,9 +176,9 @@ function CertResultDataGrid() {
       // ----------------------------------------------------------------------
       // Break out the data out into separate Objects by its 'type' attribute
       // ----------------------------------------------------------------------
-      const siteEnergyData: CertResultFields[] = d.filter(
-        (item: CertResultFields) => item.fields.TYPE === "SITE_ENERGY"
-      );
+      // const siteEnergyData: CertResultFields[] = d.filter(
+      //   (item: CertResultFields) => item.fields.TYPE === "SITE_ENERGY"
+      // );
       const sourceEnergyData: CertResultFields[] = d.filter(
         (item: CertResultFields) => item.fields.TYPE === "SOURCE_ENERGY"
       );
