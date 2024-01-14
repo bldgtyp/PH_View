@@ -1,4 +1,4 @@
-import { prepareDataForPlot } from "./GraphContainer";
+import { prepareDataForPlot } from "./GraphCertificationResults";
 import { BarChart } from "@mui/x-charts/BarChart";
 
 export function GraphAnnualDemand(graphProps: { data: any[]; chartSettings: any }) {

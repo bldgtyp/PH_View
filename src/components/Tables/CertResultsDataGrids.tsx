@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Stack } from "@mui/material";
-import StyledDataGrid from "../../../styles/DataGrid";
-import { InfoTooltipCell, generateGridColumns } from "../DataGridItems";
+import StyledDataGrid from "../../styles/DataGrid";
+import { InfoTooltipCell, generateGridColumns } from "./DataGridItems";
 
 type DataGridRow = {
   key: string;

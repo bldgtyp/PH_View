@@ -1,5 +1,5 @@
 import { BarChart } from "@mui/x-charts/BarChart";
-import { prepareDataForPlot } from "./GraphContainer";
+import { prepareDataForPlot } from "./GraphCertificationResults";
 
 export function GraphPeakLoad(graphProps: { data: any[]; chartSettings: any }) {
   if (graphProps.data.length < 3) {

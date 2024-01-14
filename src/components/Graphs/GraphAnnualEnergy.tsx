@@ -1,5 +1,5 @@
 import { BarChart } from "@mui/x-charts/BarChart";
-import { prepareDataForPlot } from "./GraphContainer";
+import { prepareDataForPlot } from "./GraphCertificationResults";
 import { axisClasses } from "@mui/x-charts";
 
 export function GraphAnnualEnergy(graphProps: { data: any[]; chartSettings: any }) {

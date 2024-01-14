@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Stack, Box } from "@mui/material";
-import { InfoTooltipCell, generateDefaultRow } from "../DataGridItems";
-import fetchData from "../../fetchAirTable";
-import { apiUrlCertResult } from "../../../config";
-import ContentBlock from "../../ContentBlock";
-import ResultDataGrid from "./DataGrids";
-import CertificationResultGraphs from "./GraphContainer";
+import { InfoTooltipCell, generateDefaultRow } from "./DataGridItems";
+import fetchData from "../fetchAirTable";
+import { apiUrlCertResult } from "../../config";
+import ContentBlock from "../ContentBlock";
+import ResultDataGrid from "./CertResultsDataGrids";
+import CertificationResultGraphs from "../Graphs/GraphCertificationResults";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable and DataGrid types
