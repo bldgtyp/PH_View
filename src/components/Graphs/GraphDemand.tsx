@@ -1,7 +1,6 @@
 import { prepareDataForPlot } from "./GraphCertificationResults";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { ChartsReferenceLine } from "@mui/x-charts/ChartsReferenceLine";
-import { HighlightScope } from "@mui/x-charts";
 
 export function GraphAnnualDemand(graphProps: {
   data: any[];

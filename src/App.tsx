@@ -4,12 +4,13 @@ import "./styles/App.css";
 import "./styles/Sidebar.css";
 import theme from "./styles/theme";
 
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Route, Routes, HashRouter } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
+import Home from "./components/Pages/Home";
 import CertificationResults from "./components/Pages/CertificationResults";
 import GlazingTypes from "./components/Pages/GlazingTypes";
 import FrameTypes from "./components/Pages/FrameTypes";
@@ -35,6 +36,7 @@ function App() {
         <Stack className="App" direction="row">
           <Sidebar />
           <Routes>
+            <Route path="home" element={<Home />} />
             <Route path="cert-results" element={<CertificationResults />} />
             <Route path="glazing-types" element={<GlazingTypes />} />
             <Route path="frame-types" element={<FrameTypes />} />
@@ -46,7 +48,7 @@ function App() {
             <Route path="appliances" element={<Appliances />} />
             <Route path="materials" element={<Materials />} />
             <Route path="constructions" element={<Constructions />} />
-            <Route path="*" element={<Constructions />} />
+            <Route path="*" element={<Home />} />
           </Routes>
         </Stack>
       </ThemeProvider>

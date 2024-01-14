@@ -6,7 +6,6 @@ import AppliancesDataGrid from "../Tables/AppliancesDataGrid";
 function RequiredDocumentation() {
   return (
     <>
-      {" "}
       <Stack className="content-block-heading" spacing={1}>
         <h3>Required Documentation:</h3>
       </Stack>

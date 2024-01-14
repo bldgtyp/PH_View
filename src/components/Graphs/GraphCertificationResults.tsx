@@ -2,7 +2,6 @@ import { Stack } from "@mui/material";
 import { GraphAnnualEnergy } from "./GraphAnnualEnergy";
 import { GraphAnnualDemand } from "./GraphDemand";
 import { GraphPeakLoad } from "./GraphPeakLoad";
-import { HighlightScope } from "@mui/x-charts";
 
 export type GraphProps = {
   key: string;

@@ -1,5 +1,6 @@
 import { Stack, Typography, Paper } from "@mui/material";
 import SidebarItem from "./SidebarItem";
+import { ReactComponent as HomeIcon } from "../icons/sidebar/home.svg";
 import { ReactComponent as CertResultsIcon } from "../icons/sidebar/cert_results.svg";
 import { ReactComponent as GlazingTypeIcon } from "../icons/sidebar/glazing-type.svg";
 import { ReactComponent as FrameTypeIcon } from "../icons/sidebar/frame-type.svg";
@@ -17,9 +18,10 @@ function Sidebar() {
     <Stack className="sidebar-container" spacing={2}>
       <Paper elevation={1} className="sidebar-group">
         <Stack>
-          <Typography variant="h5" className="sidebar-heading">
+          {/* <Typography variant="h5" className="sidebar-heading">
             Certification
-          </Typography>
+          </Typography> */}
+          <SidebarItem text="Home" to="home" icon={HomeIcon} />
           <SidebarItem text="Results" to="cert-results" icon={CertResultsIcon} />
         </Stack>
       </Paper>

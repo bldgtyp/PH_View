@@ -1,5 +1,5 @@
 // Functions for use when building DataGrid
-import { Tooltip, Stack, Box } from "@mui/material";
+import { Tooltip, Stack } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import LinkIcon from "@mui/icons-material/Link";
 import InfoIcon from "@mui/icons-material/Info";
@@ -50,7 +50,7 @@ export const datasheetRequired = (item: { id: string; fields: any }) => {
   let itemCopy = { ...item };
 
   let datasheetRequired = false;
-  if (itemCopy.fields.SPECIFICATION && itemCopy.fields.SPECIFICATION != "NA") {
+  if (itemCopy.fields.SPECIFICATION && itemCopy.fields.SPECIFICATION !== "NA") {
     datasheetRequired = true;
   }
 
@@ -93,7 +93,7 @@ function datasheetCheckboxWithLink(params: datasheetCheckboxParams) {
  * @param params.value - The value of the checkbox.
  */
 export const datasheetCheckbox = (params: { value?: datasheetCheckboxParams[] }) => {
-  if (params.value == undefined || params.value.length === 0) {
+  if (params.value === undefined || params.value.length === 0) {
     return <div className="checkbox-na" />;
   }
 
@@ -101,7 +101,7 @@ export const datasheetCheckbox = (params: { value?: datasheetCheckboxParams[] })
     return <div className="checkbox-na" />;
   }
 
-  if (params.value[0].required == true) {
+  if (params.value[0].required === true) {
     if (params.value[0].url === "") {
       return <div className="checkbox-needed" />;
     } else {

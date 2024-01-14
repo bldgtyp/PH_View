@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Stack, Box } from "@mui/material";
+import { Stack } from "@mui/material";
 import { InfoTooltipCell, generateDefaultRow } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
 import { apiUrlCertResult } from "../../config";

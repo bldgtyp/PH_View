@@ -82,14 +82,12 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function GlazingTypesDataGrid() {
-  const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  let timerId: NodeJS.Timeout;
   const [rowData, setRowData] = useState<Array<GlazingTypesRecord>>(defaultRow);
 
   useEffect(() => {
-    setIsLoading(true);
     // Show modal if loading takes longer than 250ms
+    let timerId: NodeJS.Timeout;
     timerId = setTimeout(() => {
       setShowModal(true);
     }, 500);
@@ -115,7 +113,6 @@ function GlazingTypesDataGrid() {
 
       // ---Cleanup
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
-      setIsLoading(false);
       clearTimeout(timerId); // Cancel the timeout
       setTimeout(() => {
         setShowModal(false);
