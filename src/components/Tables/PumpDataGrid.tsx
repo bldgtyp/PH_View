@@ -62,11 +62,11 @@ function PumpsDataGrid() {
   const [rowData, setRowData] = useState<Array<PumpsRecord>>(defaultRow);
 
   useEffect(() => {
-    // Show modal if loading takes longer than 250ms
+    // Show modal if loading takes longer than 1s
     let timerId: NodeJS.Timeout;
     timerId = setTimeout(() => {
       setShowModal(true);
-    }, 500);
+    }, 1000);
 
     // Fetch the data from AirTable
     fetchData(apiUrlPumps).then((fetchedData) => {
@@ -81,10 +81,8 @@ function PumpsDataGrid() {
 
       // Cleanup
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
-      clearTimeout(timerId); // Cancel the timeout
-      setTimeout(() => {
-        setShowModal(false);
-      }, 1000);
+      clearTimeout(timerId);
+      setShowModal(false);
     });
   }, []);
 

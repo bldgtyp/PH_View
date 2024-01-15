@@ -32,6 +32,12 @@ function Home() {
             sx={{
               "& .MuiStepConnector-horizontal.Mui-active > span": {
                 borderColor: "lightblue",
+                borderWidth: "2px",
+                borderStyle: "dashed",
+              },
+              "& .MuiStepConnector-horizontal.Mui-completed > span": {
+                borderColor: "#1976d2",
+                borderWidth: "2px",
               },
               "& .MuiStepLabel-iconContainer.Mui-active": {
                 color: "lightblue",
@@ -65,7 +71,7 @@ function Home() {
               component="a"
               href="https://analytics.zoho.com/open-view/2359498000004277863"
             >
-              View Phius Review Calendar (Project # 2441)
+              Go to Phius Review Calendar (Project # 2441)
             </Button>
             <Button
               variant="contained"
@@ -73,7 +79,7 @@ function Home() {
               component="a"
               href="https://www.dropbox.com/scl/fo/5b2w4n9wc1psda63xso4m/h?rlkey=e5c4bvo1visbecr0uea9lt0r3&dl=0"
             >
-              View Phius Project Dropbox Folder
+              Go to Phius Project Dropbox Folder
             </Button>
             <Button
               variant="contained"
@@ -81,7 +87,7 @@ function Home() {
               component="a"
               href="https://airtable.com/app2huKgwyKrnMRbp/shrSv8dzQdTVHyIBr"
             >
-              View Project Database
+              Go to Project Database
             </Button>
           </Stack>
         </Stack>
@@ -99,12 +105,13 @@ function Home() {
         </Stack>
         <Stack sx={{ textAlign: "left" }}>
           <ul>
-            <li>Window and Door Submittals from supplier</li>
+            <li>All glazing submittals from window/door supplier</li>
+            <li>All frame types from window/door supplier</li>
             <li>Updated Ventilators (re-specify all 'Retired' units)</li>
             <li>Missing fans for laundry rooms</li>
             <li>Missing lighting fixture cut-sheets</li>
-            <li>Updated dryer product.</li>
-            <li>All Material product specifications and cut-sheets</li>
+            <li>Updated dryer product specification.</li>
+            <li>All envelope-material (insulation, etc) product specifications and cut-sheets</li>
           </ul>
         </Stack>
       </ContentBlock>

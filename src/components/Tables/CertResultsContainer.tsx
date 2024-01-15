@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Stack } from "@mui/material";
+import { Stack, Modal, Box } from "@mui/material";
 import { InfoTooltipCell, generateDefaultRow } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
 import { apiUrlCertResult } from "../../config";
@@ -158,6 +158,7 @@ function createLoadLimits(heatingData: any[], coolingData: any[]) {
 
 // ----------------------------------------------------------------------------
 function CertResultDataGrid() {
+  const [showModal, setShowModal] = useState(false);
   // RowData to Plot --
   // const [siteEnergyRowData, setSiteEnergyData] = useState<Array<DataGridRow>>(defaultRow);
   const [sourceEnergyRowData, setSourceEnergyData] = useState<Array<DataGridRow>>(defaultRow);
@@ -171,6 +172,12 @@ function CertResultDataGrid() {
   const [loadLimits, setLoadLimits] = useState<any>(defaultLimits);
 
   useEffect(() => {
+    // Show modal if loading takes longer than 1s
+    let timerId: NodeJS.Timeout;
+    timerId = setTimeout(() => {
+      setShowModal(true);
+    }, 1000);
+
     // Fetch the data from AirTable and build up the new DataGrid rows
     fetchData(apiUrlCertResult).then((d: Record<any, any>) => {
       // ----------------------------------------------------------------------
@@ -221,6 +228,10 @@ function CertResultDataGrid() {
       setSourceEnergyLimits(createAnnualEnergyLimits(sourceEnergyData));
       setDemandLimits(createDemandLimits(heatingDemandData, coolingDemandData));
       setLoadLimits(createLoadLimits(heatingLoadData, coolingLoadData));
+
+      // Cleanup
+      clearTimeout(timerId);
+      setShowModal(false);
     });
   }, []);
 
@@ -229,6 +240,12 @@ function CertResultDataGrid() {
 
   return (
     <>
+      {" "}
+      {showModal ? (
+        <Modal open={showModal}>
+          <Box className="modal-box-loading">Loading Project Data...</Box>
+        </Modal>
+      ) : null}
       <ContentBlock>
         <Stack direction="row" spacing={3}>
           <CertificationResultGraphs

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import {
   notesCell,
@@ -85,9 +85,16 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function MaterialsDataGrid() {
+  const [showModal, setShowModal] = useState(false);
   const [rowData, setRowData] = useState<Array<MaterialsRecord>>(defaultRow);
 
   useEffect(() => {
+    // Show modal if loading takes longer than 1s
+    let timerId: NodeJS.Timeout;
+    timerId = setTimeout(() => {
+      setShowModal(true);
+    }, 1000);
+
     fetchData(apiUrlMaterials).then((fetchedData) => {
       // Merge together material-layers that use the same base Material
       const mergedData = fetchedData.reduce((acc: any[], item: any) => {
@@ -116,6 +123,8 @@ function MaterialsDataGrid() {
       });
 
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
+      clearTimeout(timerId);
+      setShowModal(false);
     });
   }, []);
 
@@ -123,6 +132,11 @@ function MaterialsDataGrid() {
   // Render the component
   return (
     <>
+      {showModal ? (
+        <Modal open={showModal}>
+          <Box className="modal-box-loading">Loading Project Data...</Box>
+        </Modal>
+      ) : null}
       <Stack className="content-block-heading" spacing={1}>
         <h3>Materials:</h3>
       </Stack>
