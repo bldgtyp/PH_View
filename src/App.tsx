@@ -5,7 +5,7 @@ import theme from "./styles/theme";
 import { Stack } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { BrowserRouter as Router, Route, useParams, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
 import Home from "./components/Pages/Home";

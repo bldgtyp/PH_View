@@ -15,10 +15,6 @@ import { ReactComponent as MaterialIcon } from "../icons/sidebar/material.svg";
 import { ReactComponent as ConstructionIcon } from "../icons/sidebar/constructions.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 
-type RouteParams = {
-  projectId: string;
-};
-
 function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -69,18 +65,6 @@ function Sidebar() {
       </Paper>
     </Stack>
   );
-
-  // return (
-  //   <Stack className="sidebar-container" spacing={2}>
-  //     <Paper elevation={1} className="sidebar-group">
-  //       <Stack>
-  //         <SidebarItem text="Home" to="home" icon={HomeIcon} />
-  //         <SidebarItem text="Results" to="cert-results" icon={CertResultsIcon} />
-  //       </Stack>
-  //     </Paper>
-
-  //   </Stack>
-  // );
 }
 
 export default Sidebar;
