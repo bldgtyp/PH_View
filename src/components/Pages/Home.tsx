@@ -34,7 +34,7 @@ function Home() {
       setCertProjectData(flattenData(d.filter((item: any) => item.fields.SECTION === "PROJ_DATA")));
     };
 
-    fetchProjectData();
+    // fetchProjectData();
   }, [projectId]);
 
   return (
