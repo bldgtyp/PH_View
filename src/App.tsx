@@ -15,7 +15,7 @@ import Home from "./components/Pages/Home";
 // import WindowUnitTypes from "./components/Pages/WindowUnitTypes";
 // import Ventilation from "./components/Pages/Ventilation";
 // import Pumps from "./components/Pages/Pumps";
-// import Fans from "./components/Pages/Fans";
+import Fans from "./components/Pages/Fans";
 // import Lighting from "./components/Pages/Lighting";
 // import Appliances from "./components/Pages/Appliances";
 // import Materials from "./components/Pages/Materials";
@@ -32,6 +32,7 @@ function App() {
           <Sidebar />
           <Routes>
             <Route path="/PH_View/:projectId/home" element={<Home />} />
+            <Route path="/:projectId/fans" element={<Fans />} />
             {/* <Route path="/PH_View/:projectId/cert-results" element={<CertificationResults />} />
             <Route path="/PH_View/:projectId/glazing-types" element={<GlazingTypes />} />
             <Route path="/PH_View/:projectId/frame-types" element={<FrameTypes />} />
