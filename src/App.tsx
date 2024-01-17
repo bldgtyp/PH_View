@@ -59,8 +59,8 @@ function App() {
         <Stack className="App" direction="row">
           {/* <Sidebar /> */}
           <Routes>
-            <Route element={<TeamB />} path="/*" />
-            <Route element={<TeamA />} path="*" />
+            <Route element={<TeamB />} path="/:projectId/f" />
+            <Route element={<TeamA />} path=":projectId/f" />
             <Route element={<TeamC />} path="*/" />
             {/* <Route path="/PH_View/:projectId/home" element={<Home />} />
             <Route path="/:projectId/fans" element={<Fans />} />
