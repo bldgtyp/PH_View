@@ -7,8 +7,9 @@ import { useParams } from "react-router-dom";
 import { Stack } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import { HashRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+// import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 
 // import Sidebar from "./components/Sidebar";
 // import Home from "./components/Pages/Home";
@@ -43,10 +44,10 @@ function TeamC() {
   return <div>In TeamC... {pathID}</div>;
 }
 
-function Router(props: { children?: React.ReactNode }) {
-  const { children } = props;
-  return <BrowserRouter>{children}</BrowserRouter>;
-}
+// function Router(props: { children?: React.ReactNode }) {
+//   const { children } = props;
+//   return <BrowserRouter>{children}</BrowserRouter>;
+// }
 
 function App() {
   console.log("In App.tsx");
