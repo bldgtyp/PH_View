@@ -29,19 +29,19 @@ function App() {
         <Stack className="App" direction="row">
           <Sidebar />
           <Routes>
-            <Route path="/:projectId/home" element={<Home />} />
-            <Route path="/:projectId/cert-results" element={<CertificationResults />} />
-            <Route path="/:projectId/glazing-types" element={<GlazingTypes />} />
-            <Route path="/:projectId/frame-types" element={<FrameTypes />} />
-            <Route path="/:projectId/window-unit-types" element={<WindowUnitTypes />} />
-            <Route path="/:projectId/ventilation" element={<Ventilation />} />
-            <Route path="/:projectId/pumps" element={<Pumps />} />
-            <Route path="/:projectId/fans" element={<Fans />} />
-            <Route path="/:projectId/lighting" element={<Lighting />} />
-            <Route path="/:projectId/appliances" element={<Appliances />} />
-            <Route path="/:projectId/materials" element={<Materials />} />
-            <Route path="/:projectId/constructions" element={<Constructions />} />
-            <Route path="/:projectId/*" element={<Home />} />
+            <Route path="/PH_View/:projectId/home" element={<Home />} />
+            <Route path="/PH_View/:projectId/cert-results" element={<CertificationResults />} />
+            <Route path="/PH_View/:projectId/glazing-types" element={<GlazingTypes />} />
+            <Route path="/PH_View/:projectId/frame-types" element={<FrameTypes />} />
+            <Route path="/PH_View/:projectId/window-unit-types" element={<WindowUnitTypes />} />
+            <Route path="/PH_View/:projectId/ventilation" element={<Ventilation />} />
+            <Route path="/PH_View/:projectId/pumps" element={<Pumps />} />
+            <Route path="/PH_View/:projectId/fans" element={<Fans />} />
+            <Route path="/PH_View/:projectId/lighting" element={<Lighting />} />
+            <Route path="/PH_View/:projectId/appliances" element={<Appliances />} />
+            <Route path="/PH_View/:projectId/materials" element={<Materials />} />
+            <Route path="/PH_View/:projectId/constructions" element={<Constructions />} />
+            <Route path="/PH_View/:projectId/*" element={<Home />} />
           </Routes>
         </Stack>
       </ThemeProvider>
