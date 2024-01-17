@@ -9,7 +9,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Sidebar from "./components/Sidebar";
+// import Sidebar from "./components/Sidebar";
 // import Home from "./components/Pages/Home";
 // import CertificationResults from "./components/Pages/CertificationResults";
 // import GlazingTypes from "./components/Pages/GlazingTypes";
