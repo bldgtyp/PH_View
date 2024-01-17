@@ -26,14 +26,13 @@ function Home() {
   const [certProjectData, setCertProjectData] = useState({});
 
   useEffect(() => {
-    const fetchProjectData = async () => {
-      const d = await fetchData(`${projectId}/config`);
-      // handle the fetched data
-      setCertStatusData(flattenData(d.filter((item: any) => item.fields.SECTION === "CERT_STATUS")));
-      setCertLinkData(flattenData(d.filter((item: any) => item.fields.SECTION === "LINKS")));
-      setCertProjectData(flattenData(d.filter((item: any) => item.fields.SECTION === "PROJ_DATA")));
-    };
-
+    // const fetchProjectData = async () => {
+    //   const d = await fetchData(`${projectId}/config`);
+    //   // handle the fetched data
+    //   setCertStatusData(flattenData(d.filter((item: any) => item.fields.SECTION === "CERT_STATUS")));
+    //   setCertLinkData(flattenData(d.filter((item: any) => item.fields.SECTION === "LINKS")));
+    //   setCertProjectData(flattenData(d.filter((item: any) => item.fields.SECTION === "PROJ_DATA")));
+    // };
     // fetchProjectData();
   }, [projectId]);
 
