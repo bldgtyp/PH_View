@@ -29,6 +29,7 @@ function App() {
         <Stack className="App" direction="row">
           <Sidebar />
           <Routes>
+            <Route path="/:projectId/home" element={<Home />} />
             <Route path="/PH_View/:projectId/home" element={<Home />} />
             {/* //         <Route path="/PH_View/:projectId/cert-results" element={<CertificationResults />} />
     //         <Route path="/PH_View/:projectId/glazing-types" element={<GlazingTypes />} />
