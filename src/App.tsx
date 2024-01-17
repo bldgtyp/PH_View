@@ -22,6 +22,8 @@ import Home from "./components/Pages/Home";
 // import Constructions from "./components/Pages/Constructions";
 
 function App() {
+  console.log("In App.tsx");
+
   return (
     <Router>
       <ThemeProvider theme={theme}>
