@@ -1,11 +1,11 @@
 // import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // import fetchData from "../fetchAirTable";
-import Page from "./Page";
-import ContentBlock from "../ContentBlock";
-import HomeCertificationStatus from "./HomeCertificationStatus";
-import HomeCertificationLinks from "./HomeCertificationLinks";
-import HomeCertificationNeeded from "./HomeCertificationNeeded";
+// import Page from "./Page";
+// import ContentBlock from "../ContentBlock";
+// import HomeCertificationStatus from "./HomeCertificationStatus";
+// import HomeCertificationLinks from "./HomeCertificationLinks";
+// import HomeCertificationNeeded from "./HomeCertificationNeeded";
 
 // type AirTableRecord = { id: string; fields: { FIELD_NAME?: string; SECTION?: string; VALUE?: string } };
 
