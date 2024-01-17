@@ -26,22 +26,22 @@ import { HashRouter as Router } from "react-router-dom";
 // import Constructions from "./components/Pages/Constructions";
 
 function TeamA() {
-  let { pathID }: any = useParams();
+  let { projectId }: any = useParams();
   console.log("in TeamA...");
-  console.log("pathID:", pathID);
-  return <div>In TeamA... {pathID}</div>;
+  console.log("projectId:", projectId);
+  return <div>In TeamA... {projectId}</div>;
 }
 function TeamB() {
-  let { pathID }: any = useParams();
+  let { projectId }: any = useParams();
   console.log("in TeamB...");
-  console.log("pathID:", pathID);
-  return <div>In TeamB... {pathID}</div>;
+  console.log("projectId:", projectId);
+  return <div>In TeamB... {projectId}</div>;
 }
 function TeamC() {
-  let { pathID }: any = useParams();
+  let { projectId }: any = useParams();
   console.log("in TeamC...");
-  console.log("pathID:", pathID);
-  return <div>In TeamC... {pathID}</div>;
+  console.log("projectId:", projectId);
+  return <div>In TeamC... {projectId}</div>;
 }
 
 // function Router(props: { children?: React.ReactNode }) {
@@ -59,9 +59,9 @@ function App() {
         <Stack className="App" direction="row">
           {/* <Sidebar /> */}
           <Routes>
-            <Route element={<TeamB />} path="/:projectId/f" />
-            <Route element={<TeamA />} path=":projectId/f" />
-            <Route element={<TeamC />} path="*/" />
+            <Route element={<TeamA />} path="/:projectId/A" />
+            <Route element={<TeamB />} path=":projectId/B" />
+            <Route element={<TeamC />} path="*" />
             {/* <Route path="/PH_View/:projectId/home" element={<Home />} />
             <Route path="/:projectId/fans" element={<Fans />} />
             <Route path="/PH_View/:projectId/cert-results" element={<CertificationResults />} />
