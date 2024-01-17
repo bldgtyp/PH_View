@@ -2,28 +2,44 @@ import "./styles/App.css";
 import "./styles/Sidebar.css";
 import theme from "./styles/theme";
 
+import { useParams } from "react-router-dom";
+
 import { Stack } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
-import Home from "./components/Pages/Home";
+// import Home from "./components/Pages/Home";
 // import CertificationResults from "./components/Pages/CertificationResults";
 // import GlazingTypes from "./components/Pages/GlazingTypes";
 // import FrameTypes from "./components/Pages/FrameTypes";
 // import WindowUnitTypes from "./components/Pages/WindowUnitTypes";
 // import Ventilation from "./components/Pages/Ventilation";
 // import Pumps from "./components/Pages/Pumps";
-import Fans from "./components/Pages/Fans";
+// import Fans from "./components/Pages/Fans";
 // import Lighting from "./components/Pages/Lighting";
 // import Appliances from "./components/Pages/Appliances";
 // import Materials from "./components/Pages/Materials";
 // import Constructions from "./components/Pages/Constructions";
 
-function Team() {
-  console.log("in Team...");
-  return <div>In Team...</div>;
+function TeamA() {
+  let pathID: any = useParams();
+  console.log("in TeamA...");
+  console.log("pathID:", pathID);
+  return <div>In TeamA... {pathID}</div>;
+}
+function TeamB() {
+  let pathID: any = useParams();
+  console.log("in TeamB...");
+  console.log("pathID:", pathID);
+  return <div>In TeamB... {pathID}</div>;
+}
+function TeamC() {
+  let pathID: any = useParams();
+  console.log("in TeamC...");
+  console.log("pathID:", pathID);
+  return <div>In TeamC... {pathID}</div>;
 }
 
 function App() {
@@ -36,7 +52,9 @@ function App() {
         <Stack className="App" direction="row">
           <Sidebar />
           <Routes>
-            <Route element={<Team />} path="*" />
+            <Route element={<TeamA />} path="*" />
+            <Route element={<TeamB />} path="/*" />
+            <Route element={<TeamC />} path="*/" />
             {/* <Route path="/PH_View/:projectId/home" element={<Home />} />
             <Route path="/:projectId/fans" element={<Fans />} />
             <Route path="/PH_View/:projectId/cert-results" element={<CertificationResults />} />
