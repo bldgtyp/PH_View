@@ -1,5 +1,5 @@
-// import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+// import { useState, useEffect } from "react";
 // import fetchData from "../fetchAirTable";
 // import Page from "./Page";
 // import ContentBlock from "../ContentBlock";
@@ -38,7 +38,7 @@ function Home() {
   // }, [projectId]);
 
   return (
-    <>Test</>
+    <>Test: {projectId}</>
     // <Page>
     //   <ContentBlock>
     //     <HomeCertificationStatus statusData={certStatusData} linkData={certLinkData} projData={certProjectData} />

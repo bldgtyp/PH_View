@@ -1,14 +1,14 @@
 import "./styles/App.css";
 import "./styles/Sidebar.css";
-// import theme from "./styles/theme";
+import theme from "./styles/theme";
 
-// import { Stack } from "@mui/material";
-// import { ThemeProvider } from "@mui/material/styles";
-// import CssBaseline from "@mui/material/CssBaseline";
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Stack } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-// import Sidebar from "./components/Sidebar";
-// import Home from "./components/Pages/Home";
+import Sidebar from "./components/Sidebar";
+import Home from "./components/Pages/Home";
 // import CertificationResults from "./components/Pages/CertificationResults";
 // import GlazingTypes from "./components/Pages/GlazingTypes";
 // import FrameTypes from "./components/Pages/FrameTypes";
@@ -23,17 +23,14 @@ import "./styles/Sidebar.css";
 
 function App() {
   return (
-    <>
-      <div>This is a Test</div>
-    </>
-    // <Router>
-    //   <ThemeProvider theme={theme}>
-    //     <CssBaseline />
-    //     <Stack className="App" direction="row">
-    //       <Sidebar />
-    //       <Routes>
-    //         <Route path="/PH_View/:projectId/home" element={<Home />} />
-    //         <Route path="/PH_View/:projectId/cert-results" element={<CertificationResults />} />
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Stack className="App" direction="row">
+          <Sidebar />
+          <Routes>
+            <Route path="/PH_View/:projectId/home" element={<Home />} />
+            {/* //         <Route path="/PH_View/:projectId/cert-results" element={<CertificationResults />} />
     //         <Route path="/PH_View/:projectId/glazing-types" element={<GlazingTypes />} />
     //         <Route path="/PH_View/:projectId/frame-types" element={<FrameTypes />} />
     //         <Route path="/PH_View/:projectId/window-unit-types" element={<WindowUnitTypes />} />
@@ -43,12 +40,12 @@ function App() {
     //         <Route path="/PH_View/:projectId/lighting" element={<Lighting />} />
     //         <Route path="/PH_View/:projectId/appliances" element={<Appliances />} />
     //         <Route path="/PH_View/:projectId/materials" element={<Materials />} />
-    //         <Route path="/PH_View/:projectId/constructions" element={<Constructions />} />
-    //         <Route path="/PH_View/:projectId/*" element={<Home />} />
-    //       </Routes>
-    //     </Stack>
-    //   </ThemeProvider>
-    // </Router>
+    //         <Route path="/PH_View/:projectId/constructions" element={<Constructions />} />*/}
+            <Route path="/PH_View/:projectId/*" element={<Home />} />
+          </Routes>
+        </Stack>
+      </ThemeProvider>
+    </Router>
   );
 }
 
