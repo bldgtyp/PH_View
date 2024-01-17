@@ -11,7 +11,7 @@ import { Route, Routes } from "react-router-dom";
 // import { BrowserRouter as Router } from "react-router-dom";
 import { HashRouter as Router } from "react-router-dom";
 
-// import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/Sidebar";
 // import Home from "./components/Pages/Home";
 // import CertificationResults from "./components/Pages/CertificationResults";
 // import GlazingTypes from "./components/Pages/GlazingTypes";
@@ -57,7 +57,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Stack className="App" direction="row">
-          {/* <Sidebar /> */}
+          <Sidebar />
           <Routes>
             <Route element={<TeamA />} path="/:projectId/A" />
             <Route element={<TeamB />} path=":projectId/B" />
