@@ -58,7 +58,6 @@ function RequiredDocumentation() {
 function FrameTypes() {
   return (
     <Page>
-      {" "}
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>

@@ -2,7 +2,6 @@ import Page from "./Page";
 import ContentBlock from "../ContentBlock";
 import { Stack } from "@mui/material";
 import FanDataGrid from "../Tables/FanDataGrid";
-import { useParams } from "react-router-dom";
 
 function RequiredDocumentation() {
   return (
@@ -35,7 +34,6 @@ function RequiredDocumentation() {
 }
 
 function Fans() {
-  let { projectId } = useParams();
   return (
     <Page>
       <ContentBlock>

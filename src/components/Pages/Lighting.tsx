@@ -37,7 +37,6 @@ function RequiredDocumentation() {
 function Lighting() {
   return (
     <Page>
-      {" "}
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>

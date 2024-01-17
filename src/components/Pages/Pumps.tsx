@@ -36,7 +36,6 @@ function RequiredDocumentation() {
 function Pumps() {
   return (
     <Page>
-      {" "}
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>

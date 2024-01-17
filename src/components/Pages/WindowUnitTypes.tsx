@@ -35,7 +35,6 @@ function RequiredDocumentation() {
 function WindowUnitTypes() {
   return (
     <Page>
-      {" "}
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>

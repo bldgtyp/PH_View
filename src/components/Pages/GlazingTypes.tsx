@@ -59,7 +59,6 @@ function RequiredDocumentation() {
 function GlazingTypes() {
   return (
     <Page>
-      {" "}
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>

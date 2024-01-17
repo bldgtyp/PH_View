@@ -30,7 +30,6 @@ function RequiredDocumentation() {
 function Materials() {
   return (
     <Page>
-      {" "}
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>
