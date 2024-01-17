@@ -23,7 +23,7 @@ function Sidebar() {
   // https://{root}/PH_View{projectID}/page
   const projectId = location.pathname.split("/")[1];
   const goToPage = (page: string) => {
-    navigate(`/${projectId}/${page}`);
+    navigate(`${projectId}/${page}`);
   };
 
   return (

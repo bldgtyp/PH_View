@@ -2,7 +2,7 @@ import "./styles/App.css";
 import "./styles/Sidebar.css";
 import theme from "./styles/theme";
 
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 import { Stack } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
@@ -12,7 +12,7 @@ import { Route, Routes } from "react-router-dom";
 import { HashRouter as Router } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
-// import Home from "./components/Pages/Home";
+import Home from "./components/Pages/Home";
 // import CertificationResults from "./components/Pages/CertificationResults";
 // import GlazingTypes from "./components/Pages/GlazingTypes";
 // import FrameTypes from "./components/Pages/FrameTypes";
@@ -25,24 +25,24 @@ import Sidebar from "./components/Sidebar";
 // import Materials from "./components/Pages/Materials";
 // import Constructions from "./components/Pages/Constructions";
 
-function TeamA() {
-  let { projectId }: any = useParams();
-  console.log("in TeamA...");
-  console.log("projectId:", projectId);
-  return <div>In TeamA... {projectId}</div>;
-}
-function TeamB() {
-  let { projectId }: any = useParams();
-  console.log("in TeamB...");
-  console.log("projectId:", projectId);
-  return <div>In TeamB... {projectId}</div>;
-}
-function TeamC() {
-  let { projectId }: any = useParams();
-  console.log("in TeamC...");
-  console.log("projectId:", projectId);
-  return <div>In TeamC... {projectId}</div>;
-}
+// function TeamA() {
+//   let { projectId }: any = useParams();
+//   console.log("in TeamA...");
+//   console.log("projectId:", projectId);
+//   return <div>In TeamA... {projectId}</div>;
+// }
+// function TeamB() {
+//   let { projectId }: any = useParams();
+//   console.log("in TeamB...");
+//   console.log("projectId:", projectId);
+//   return <div>In TeamB... {projectId}</div>;
+// }
+// function TeamC() {
+//   let { projectId }: any = useParams();
+//   console.log("in TeamC...");
+//   console.log("projectId:", projectId);
+//   return <div>In TeamC... {projectId}</div>;
+// }
 
 // function Router(props: { children?: React.ReactNode }) {
 //   const { children } = props;
@@ -50,8 +50,6 @@ function TeamC() {
 // }
 
 function App() {
-  console.log("In App.tsx");
-
   return (
     <Router>
       <ThemeProvider theme={theme}>
@@ -59,11 +57,11 @@ function App() {
         <Stack className="App" direction="row">
           <Sidebar />
           <Routes>
-            <Route element={<TeamA />} path="/:projectId/A" />
+            {/* <Route element={<TeamA />} path="/:projectId/A" />
             <Route element={<TeamB />} path=":projectId/B" />
-            <Route element={<TeamC />} path="*" />
-            {/* <Route path="/PH_View/:projectId/home" element={<Home />} />
-            <Route path="/:projectId/fans" element={<Fans />} />
+            <Route element={<TeamC />} path="*" /> */}
+            <Route path=":projectId/home" element={<Home />} />
+            {/* <Route path="/:projectId/fans" element={<Fans />} />
             <Route path="/PH_View/:projectId/cert-results" element={<CertificationResults />} />
             <Route path="/PH_View/:projectId/glazing-types" element={<GlazingTypes />} />
             <Route path="/PH_View/:projectId/frame-types" element={<FrameTypes />} />
