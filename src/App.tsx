@@ -24,19 +24,19 @@ import Sidebar from "./components/Sidebar";
 // import Constructions from "./components/Pages/Constructions";
 
 function TeamA() {
-  let pathID: any = useParams();
+  let { pathID }: any = useParams();
   console.log("in TeamA...");
   console.log("pathID:", pathID);
   return <div>In TeamA... {pathID}</div>;
 }
 function TeamB() {
-  let pathID: any = useParams();
+  let { pathID }: any = useParams();
   console.log("in TeamB...");
   console.log("pathID:", pathID);
   return <div>In TeamB... {pathID}</div>;
 }
 function TeamC() {
-  let pathID: any = useParams();
+  let { pathID }: any = useParams();
   console.log("in TeamC...");
   console.log("pathID:", pathID);
   return <div>In TeamC... {pathID}</div>;
@@ -50,7 +50,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Stack className="App" direction="row">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <Routes>
             <Route element={<TeamA />} path="*" />
             <Route element={<TeamB />} path="/*" />
