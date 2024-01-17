@@ -1,18 +1,4 @@
-import { useState, useEffect } from "react";
-import fetchData from "../fetchAirTable";
-import Page from "./Page";
-import ContentBlock from "../ContentBlock";
-import { Stack, Button } from "@mui/material";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import FolderSharedIcon from "@mui/icons-material/FolderShared";
-import StorageIcon from "@mui/icons-material/Storage";
-import { BLDGTYP_PROJ_NUM, PHIUS_PROJ_NUM, PHIUS_DROPBOX_URL, AIRTABLE_PROJECT_URL } from "../../config";
-import HomeCertificationStatus from "./HomeCertificationStatus";
-import HomeCertificationLinks from "./HomeCertificationLinks";
-import { apiUrlConfig } from "../../config";
+import { Stack } from "@mui/material";
 
 function HomeCertificationNeeded(props: { statusData: any; linkData: any; projData: any }) {
   return (
