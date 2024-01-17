@@ -23,7 +23,9 @@ import "./styles/Sidebar.css";
 
 function App() {
   return (
-    <>Test</>
+    <>
+      <div>This is a Test</div>
+    </>
     // <Router>
     //   <ThemeProvider theme={theme}>
     //     <CssBaseline />
