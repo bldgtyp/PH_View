@@ -7,7 +7,8 @@ import { useParams } from "react-router-dom";
 import { Stack } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import { HashRouter } from "react-router-dom";
 
 // import Sidebar from "./components/Sidebar";
 // import Home from "./components/Pages/Home";
@@ -42,6 +43,11 @@ function TeamC() {
   return <div>In TeamC... {pathID}</div>;
 }
 
+function Router(props: { children?: React.ReactNode }) {
+  const { children } = props;
+  return <BrowserRouter>{children}</BrowserRouter>;
+}
+
 function App() {
   console.log("In App.tsx");
 
@@ -52,8 +58,8 @@ function App() {
         <Stack className="App" direction="row">
           {/* <Sidebar /> */}
           <Routes>
-            <Route element={<TeamA />} path="*" />
             <Route element={<TeamB />} path="/*" />
+            <Route element={<TeamA />} path="*" />
             <Route element={<TeamC />} path="*/" />
             {/* <Route path="/PH_View/:projectId/home" element={<Home />} />
             <Route path="/:projectId/fans" element={<Fans />} />
