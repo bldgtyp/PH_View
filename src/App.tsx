@@ -21,6 +21,11 @@ import Fans from "./components/Pages/Fans";
 // import Materials from "./components/Pages/Materials";
 // import Constructions from "./components/Pages/Constructions";
 
+function Team() {
+  console.log("in Team...");
+  return <div>In Team...</div>;
+}
+
 function App() {
   console.log("In App.tsx");
 
@@ -31,9 +36,10 @@ function App() {
         <Stack className="App" direction="row">
           <Sidebar />
           <Routes>
-            <Route path="/PH_View/:projectId/home" element={<Home />} />
+            <Route element={<Team />} path="*" />
+            {/* <Route path="/PH_View/:projectId/home" element={<Home />} />
             <Route path="/:projectId/fans" element={<Fans />} />
-            {/* <Route path="/PH_View/:projectId/cert-results" element={<CertificationResults />} />
+            <Route path="/PH_View/:projectId/cert-results" element={<CertificationResults />} />
             <Route path="/PH_View/:projectId/glazing-types" element={<GlazingTypes />} />
             <Route path="/PH_View/:projectId/frame-types" element={<FrameTypes />} />
             <Route path="/PH_View/:projectId/window-unit-types" element={<WindowUnitTypes />} />
