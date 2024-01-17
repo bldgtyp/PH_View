@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import {
@@ -14,7 +15,6 @@ import {
   generateDefaultRow,
 } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
-import { apiUrlMaterials } from "../../config";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
@@ -88,6 +88,7 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function MaterialsDataGrid() {
+  let { projectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [rowData, setRowData] = useState<Array<MaterialsRecord>>(defaultRow);
 
@@ -98,8 +99,9 @@ function MaterialsDataGrid() {
       setShowModal(true);
     }, 1000);
 
-    fetchData(apiUrlMaterials).then((fetchedData) => {
-      // Merge together material-layers that use the same base Material
+    // Fetch the data from AirTable
+    const fetchProjectData = async () => {
+      const fetchedData = await fetchData(`${projectId}/materials`);
       const mergedData = fetchedData.reduce((acc: any[], item: any) => {
         // AirTable API returns the LAYER_MATERIAL_NAME as an array, even when it's a single value
         const existingItem = acc.find((x) => x.fields.LAYER_MATERIAL_NAME[0] === item.fields.LAYER_MATERIAL_NAME[0]);
@@ -128,8 +130,9 @@ function MaterialsDataGrid() {
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
       clearTimeout(timerId);
       setShowModal(false);
-    });
-  }, []);
+    };
+    fetchProjectData();
+  }, [projectId]);
 
   // --------------------------------------------------------------------------
   // Render the component

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import fetchData from "../fetchAirTable";
 import Page from "./Page";
 import ContentBlock from "../ContentBlock";
 import HomeCertificationStatus from "./HomeCertificationStatus";
 import HomeCertificationLinks from "./HomeCertificationLinks";
-import { apiUrlConfig } from "../../config";
 import HomeCertificationNeeded from "./HomeCertificationNeeded";
 
 type AirTableRecord = { id: string; fields: { FIELD_NAME?: string; SECTION?: string; VALUE?: string } };
@@ -20,17 +20,22 @@ function flattenData(d: AirTableRecord[]) {
 }
 
 function Home() {
+  let { projectId } = useParams();
   const [certStatusData, setCertStatusData] = useState({});
   const [certLinkData, setCertLinkData] = useState({});
   const [certProjectData, setCertProjectData] = useState({});
 
   useEffect(() => {
-    fetchData(apiUrlConfig).then((d: AirTableRecord[]) => {
-      setCertStatusData(flattenData(d.filter((item) => item.fields.SECTION === "CERT_STATUS")));
-      setCertLinkData(flattenData(d.filter((item) => item.fields.SECTION === "LINKS")));
-      setCertProjectData(flattenData(d.filter((item) => item.fields.SECTION === "PROJ_DATA")));
-    });
-  }, []);
+    const fetchProjectData = async () => {
+      const d = await fetchData(`${projectId}/config`);
+      // handle the fetched data
+      setCertStatusData(flattenData(d.filter((item: any) => item.fields.SECTION === "CERT_STATUS")));
+      setCertLinkData(flattenData(d.filter((item: any) => item.fields.SECTION === "LINKS")));
+      setCertProjectData(flattenData(d.filter((item: any) => item.fields.SECTION === "PROJ_DATA")));
+    };
+
+    fetchProjectData();
+  }, [projectId]);
 
   return (
     <Page>

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import { notesCell, TooltipHeader, InfoTooltipCell, generateGridColumns, generateDefaultRow } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
-import { apiUrlPumps } from "../../config";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
@@ -58,6 +58,7 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function PumpsDataGrid() {
+  let { projectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [rowData, setRowData] = useState<Array<PumpsRecord>>(defaultRow);
 
@@ -69,7 +70,8 @@ function PumpsDataGrid() {
     }, 1000);
 
     // Fetch the data from AirTable
-    fetchData(apiUrlPumps).then((fetchedData) => {
+    const fetchProjectData = async () => {
+      const fetchedData = await fetchData(`${projectId}/pumps`);
       const newRows = fetchedData.map((item: any) => ({
         id: item.id,
         identifier: item.fields.DISPLAY_NAME,
@@ -83,8 +85,9 @@ function PumpsDataGrid() {
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
       clearTimeout(timerId);
       setShowModal(false);
-    });
-  }, []);
+    };
+    fetchProjectData();
+  }, [projectId]);
 
   // --------------------------------------------------------------------------
   // Render the component

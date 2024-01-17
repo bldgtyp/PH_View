@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import {
@@ -13,7 +14,6 @@ import {
   specificationCheckbox,
 } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
-import { apiUrlFans } from "../../config";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
@@ -83,6 +83,7 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function FanDataGrid() {
+  let { projectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [rowData, setRowData] = useState<Array<FanRecord>>(defaultRow);
 
@@ -94,7 +95,8 @@ function FanDataGrid() {
     }, 1000);
 
     // Fetch the data from AirTable
-    fetchData(apiUrlFans).then((fetchedData) => {
+    const fetchProjectData = async () => {
+      const fetchedData = await fetchData(`${projectId}/fans`);
       const newRows = fetchedData.map((item: any) => {
         item = datasheetRequired(item);
         return {
@@ -116,8 +118,9 @@ function FanDataGrid() {
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
       clearTimeout(timerId);
       setShowModal(false);
-    });
-  }, []);
+    };
+    fetchProjectData();
+  }, [projectId]);
 
   // --------------------------------------------------------------------------
   // Render the component

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import {
@@ -11,7 +12,6 @@ import {
   specificationCheckbox,
 } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
-import { apiUrlLighting } from "../../config";
 import { generateGridColumns, generateDefaultRow } from "./DataGridItems";
 
 // ----------------------------------------------------------------------------
@@ -81,6 +81,7 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function LightingDataGrid() {
+  let { projectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [rowData, setRowData] = useState<Array<LightingRecord>>(defaultRow);
 
@@ -92,7 +93,8 @@ function LightingDataGrid() {
     }, 1000);
 
     // Fetch the data from AirTable
-    fetchData(apiUrlLighting).then((fetchedData) => {
+    const fetchProjectData = async () => {
+      const fetchedData = await fetchData(`${projectId}/lighting`);
       const newRows = fetchedData.map((item: any) => {
         item = datasheetRequired(item);
         return {
@@ -114,8 +116,9 @@ function LightingDataGrid() {
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
       clearTimeout(timerId);
       setShowModal(false);
-    });
-  }, []);
+    };
+    fetchProjectData();
+  }, [projectId]);
 
   // --------------------------------------------------------------------------
   // Render the component

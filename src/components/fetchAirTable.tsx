@@ -1,23 +1,10 @@
-/**
- * Fetches data from the specified API URL.
- * @param apiUrl The URL of the API to fetch data from.
- * @returns A Promise that resolves to the fetched data.
- */
-async function fetchData(apiUrl: string): Promise<any> {
-  try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    const data = await response.json();
-
-    // await new Promise((resolve) => setTimeout(resolve, 3000)); //<---
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error; // re-throw the error so it can be caught and handled by the calling code
+export async function fetchData(endpoint: string) {
+  const API_BASE_URL = process.env.REACT_APP_API_URL || "https://ph-view-airtable-v1.onrender.com/";
+  const response = await fetch(`${API_BASE_URL}${endpoint}`);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
   }
+  return await response.json();
 }
 
 export default fetchData;

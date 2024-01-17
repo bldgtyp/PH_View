@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import {
@@ -13,7 +14,6 @@ import {
   specificationCheckbox,
 } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
-import { apiUrlErvUnits } from "../../config";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
@@ -118,6 +118,7 @@ const columns = generateGridColumns(tableFields);
 const defaultRow = generateDefaultRow(tableFields);
 
 function ErvDataGrid() {
+  let { projectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [rowData, setRowData] = useState<Array<ErvRecord>>(defaultRow);
 
@@ -129,7 +130,8 @@ function ErvDataGrid() {
     }, 1000);
 
     // Fetch the data from AirTable
-    fetchData(apiUrlErvUnits).then((fetchedData) => {
+    const fetchProjectData = async () => {
+      const fetchedData = await fetchData(`${projectId}/erv_units`);
       const newRows = fetchedData.map((item: any) => {
         item = datasheetRequired(item);
         return {
@@ -151,8 +153,9 @@ function ErvDataGrid() {
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
       clearTimeout(timerId);
       setShowModal(false);
-    });
-  }, []);
+    };
+    fetchProjectData();
+  }, [projectId]);
 
   // --------------------------------------------------------------------------
   // Render the component

@@ -1,23 +1,15 @@
 import "../styles/SidebarItem.css";
-import React from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { ListItemText, ListItemButton } from "@mui/material";
-import { Link as RouterLink, LinkProps as RouterLinkProps } from "react-router-dom";
-
-// --------------------------------------------------------------------------------------
-// Link and ListItemLink Components used to create the SidebarItem
-const Link = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(function Link(itemProps, ref) {
-  return <RouterLink ref={ref} {...itemProps} role={undefined} />;
-});
 
 type ListItemLinkProps = {
   text: string;
+  onClick: any;
   icon: any;
-  to: string;
 };
 
 function ListItemLink(props: ListItemLinkProps) {
-  const { text, to, icon: Icon } = props;
+  const { text, onClick, icon: Icon } = props;
 
   return (
     <>
@@ -27,9 +19,7 @@ function ListItemLink(props: ListItemLinkProps) {
           paddingTop: "6px",
           paddingBottom: "6px",
         }}
-        className="sidebar-item"
-        component={Link}
-        to={to}
+        onClick={onClick}
       >
         <ListItemIcon>
           <Icon className="sidebar-icon" />
@@ -44,12 +34,12 @@ function ListItemLink(props: ListItemLinkProps) {
 // SidebarItem Component
 type SidebarItemProps = {
   text: string;
-  to: string;
+  onClick: any;
   icon: any;
 };
 
-function SidebarItem({ text, to, icon }: SidebarItemProps) {
-  return <ListItemLink text={text} to={to} icon={icon} />;
+function SidebarItem({ text, onClick, icon }: SidebarItemProps) {
+  return <ListItemLink text={text} onClick={onClick} icon={icon} />;
 }
 
 export default SidebarItem;

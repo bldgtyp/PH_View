@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Stack, Modal, Box } from "@mui/material";
 import { InfoTooltipCell, generateDefaultRow } from "../Tables/DataGridItems";
 import fetchData from "../fetchAirTable";
-import { apiUrlCertResult } from "../../config";
 import ContentBlock from "../ContentBlock";
 import ResultDataGrid from "../Tables/CertResultsDataGrids";
 import CertificationResultGraphs from "../Graphs/GraphCertificationResults";
@@ -158,6 +158,7 @@ function createLoadLimits(heatingData: any[], coolingData: any[]) {
 
 // ----------------------------------------------------------------------------
 function CertResultDataGrid() {
+  let { projectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   // RowData to Plot --
   // const [siteEnergyRowData, setSiteEnergyData] = useState<Array<DataGridRow>>(defaultRow);
@@ -179,13 +180,12 @@ function CertResultDataGrid() {
     }, 1000);
 
     // Fetch the data from AirTable and build up the new DataGrid rows
-    fetchData(apiUrlCertResult).then((d: Record<any, any>) => {
+    const fetchProjectData = async () => {
+      const d = await fetchData(`${projectId}/cert_results`);
+
       // ----------------------------------------------------------------------
       // Break out the data out into separate Objects by its 'type' attribute
       // ----------------------------------------------------------------------
-      // const siteEnergyData: CertResultFields[] = d.filter(
-      //   (item: CertResultFields) => item.fields.TYPE === "SITE_ENERGY"
-      // );
       const sourceEnergyData: CertResultFields[] = d.filter(
         (item: CertResultFields) => item.fields.TYPE === "SOURCE_ENERGY"
       );
@@ -232,8 +232,9 @@ function CertResultDataGrid() {
       // Cleanup
       clearTimeout(timerId);
       setShowModal(false);
-    });
-  }, []);
+    };
+    fetchProjectData();
+  }, [projectId]);
 
   // --------------------------------------------------------------------------
   // Render the Graph Group Component

@@ -64,7 +64,6 @@ function RequiredDocumentation() {
 function Appliances() {
   return (
     <Page>
-      {" "}
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>

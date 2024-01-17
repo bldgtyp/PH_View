@@ -1,5 +1,3 @@
-import React from "react";
-
 import "./styles/App.css";
 import "./styles/Sidebar.css";
 import theme from "./styles/theme";
@@ -7,7 +5,7 @@ import theme from "./styles/theme";
 import { Stack } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Route, Routes, HashRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route, useParams, Routes } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
 import Home from "./components/Pages/Home";
@@ -23,11 +21,6 @@ import Appliances from "./components/Pages/Appliances";
 import Materials from "./components/Pages/Materials";
 import Constructions from "./components/Pages/Constructions";
 
-function Router(props: { children?: React.ReactNode }) {
-  const { children } = props;
-  return <HashRouter>{children}</HashRouter>;
-}
-
 function App() {
   return (
     <Router>
@@ -36,19 +29,19 @@ function App() {
         <Stack className="App" direction="row">
           <Sidebar />
           <Routes>
-            <Route path="home" element={<Home />} />
-            <Route path="cert-results" element={<CertificationResults />} />
-            <Route path="glazing-types" element={<GlazingTypes />} />
-            <Route path="frame-types" element={<FrameTypes />} />
-            <Route path="window-unit-types" element={<WindowUnitTypes />} />
-            <Route path="ventilation" element={<Ventilation />} />
-            <Route path="pumps" element={<Pumps />} />
-            <Route path="fans" element={<Fans />} />
-            <Route path="lighting" element={<Lighting />} />
-            <Route path="appliances" element={<Appliances />} />
-            <Route path="materials" element={<Materials />} />
-            <Route path="constructions" element={<Constructions />} />
-            <Route path="*" element={<Home />} />
+            <Route path="/:projectId/home" element={<Home />} />
+            <Route path="/:projectId/cert-results" element={<CertificationResults />} />
+            <Route path="/:projectId/glazing-types" element={<GlazingTypes />} />
+            <Route path="/:projectId/frame-types" element={<FrameTypes />} />
+            <Route path="/:projectId/window-unit-types" element={<WindowUnitTypes />} />
+            <Route path="/:projectId/ventilation" element={<Ventilation />} />
+            <Route path="/:projectId/pumps" element={<Pumps />} />
+            <Route path="/:projectId/fans" element={<Fans />} />
+            <Route path="/:projectId/lighting" element={<Lighting />} />
+            <Route path="/:projectId/appliances" element={<Appliances />} />
+            <Route path="/:projectId/materials" element={<Materials />} />
+            <Route path="/:projectId/constructions" element={<Constructions />} />
+            <Route path="/:projectId/*" element={<Home />} />
           </Routes>
         </Stack>
       </ThemeProvider>

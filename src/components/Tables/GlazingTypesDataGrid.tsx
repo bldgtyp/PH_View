@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import "../../styles/Modal.css";
@@ -15,7 +16,6 @@ import {
   specificationCheckbox,
 } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
-import { apiUrlGlazingTypes } from "../../config";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
@@ -97,6 +97,7 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function GlazingTypesDataGrid() {
+  let { projectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [rowData, setRowData] = useState<Array<GlazingTypesRecord>>(defaultRow);
 
@@ -108,7 +109,8 @@ function GlazingTypesDataGrid() {
     }, 1000);
 
     // Fetch the data from AirTable
-    fetchData(apiUrlGlazingTypes).then((fetchedData) => {
+    const fetchProjectData = async () => {
+      const fetchedData = await fetchData(`${projectId}/glazing_types`);
       const newRows = fetchedData.map((item: { id: string; fields: GlazingTypesFields }) => {
         item = datasheetRequired(item);
         return {
@@ -130,8 +132,10 @@ function GlazingTypesDataGrid() {
       newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
       clearTimeout(timerId);
       setShowModal(false);
-    });
-  }, []);
+    };
+    fetchProjectData();
+  }, [projectId]);
+
   // --------------------------------------------------------------------------
   // Render the component
 
