@@ -19,9 +19,10 @@ function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Assuming the projectId is always the first parameter after the root
-  const projectId = location.pathname.split("/")[1];
-
+  // Assuming the projectId is always the second parameter after root.
+  // https://{root}/PH_View{projectID}/page
+  const projectId = location.pathname.split("/")[2];
+  console.log(">", projectId);
   const goToPage = (page: string) => {
     navigate(`/${projectId}/${page}`);
   };
