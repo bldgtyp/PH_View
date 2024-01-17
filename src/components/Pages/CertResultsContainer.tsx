@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Stack, Modal, Box } from "@mui/material";
-import { InfoTooltipCell, generateDefaultRow } from "./DataGridItems";
+import { InfoTooltipCell, generateDefaultRow } from "../Tables/DataGridItems";
 import fetchData from "../fetchAirTable";
 import { apiUrlCertResult } from "../../config";
 import ContentBlock from "../ContentBlock";
-import ResultDataGrid from "./CertResultsDataGrids";
+import ResultDataGrid from "../Tables/CertResultsDataGrids";
 import CertificationResultGraphs from "../Graphs/GraphCertificationResults";
 
 // ----------------------------------------------------------------------------
@@ -236,11 +236,10 @@ function CertResultDataGrid() {
   }, []);
 
   // --------------------------------------------------------------------------
-  // Render the component
+  // Render the Graph Group Component
 
   return (
     <>
-      {" "}
       {showModal ? (
         <Modal open={showModal}>
           <Box className="modal-box-loading">Loading Project Data...</Box>

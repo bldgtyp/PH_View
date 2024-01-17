@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import {
+  decimalCell,
   notesCell,
   datasheetRequired,
   TooltipHeader,
@@ -69,9 +70,30 @@ const tableFields = [
   { field: "model", headerName: "Model", flex: 1 },
   { field: "operation", headerName: "Operation", flex: 1 },
   { field: "location", headerName: "Location", flex: 1 },
-  { field: "u_value", headerName: "U-Value", flex: 1 },
-  { field: "width_in", headerName: "Width [in.]", flex: 1 },
-  { field: "psi_glazing", headerName: "Psi-G", flex: 1 },
+  {
+    field: "u_value",
+    headerName: "U-Value",
+    flex: 1,
+    renderCell: (params: any) => {
+      return decimalCell(params, 3);
+    },
+  },
+  {
+    field: "width_in",
+    headerName: "Width [in.]",
+    flex: 1,
+    renderCell: (params: any) => {
+      return decimalCell(params, 2);
+    },
+  },
+  {
+    field: "psi_glazing",
+    headerName: "Psi-G",
+    flex: 1,
+    renderCell: (params: any) => {
+      return decimalCell(params, 3);
+    },
+  },
   {
     field: "link",
     headerName: "Link",

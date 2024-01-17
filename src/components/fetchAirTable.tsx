@@ -3,7 +3,7 @@
  * @param apiUrl The URL of the API to fetch data from.
  * @returns A Promise that resolves to the fetched data.
  */
-async function fetchData(apiUrl: string): Promise<Record<any, any>> {
+async function fetchData(apiUrl: string): Promise<any> {
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) {

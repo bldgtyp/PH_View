@@ -3,6 +3,7 @@ import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import "../../styles/Modal.css";
 import {
+  decimalCell,
   notesCell,
   datasheetRequired,
   TooltipHeader,
@@ -65,8 +66,22 @@ const tableFields = [
   },
   { field: "manufacturer", headerName: "Manuf.", flex: 1 },
   { field: "model", headerName: "Model", flex: 1 },
-  { field: "u_value", headerName: "U-Value", flex: 1 },
-  { field: "g_value", headerName: "g-Value", flex: 1 },
+  {
+    field: "u_value",
+    headerName: "U-Value",
+    flex: 1,
+    renderCell: (params: any) => {
+      return decimalCell(params, 3);
+    },
+  },
+  {
+    field: "g_value",
+    headerName: "g-Value",
+    flex: 1,
+    renderCell: (params: any) => {
+      return decimalCell(params, 2);
+    },
+  },
   {
     field: "link",
     headerName: "Link",

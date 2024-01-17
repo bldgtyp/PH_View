@@ -1,6 +1,6 @@
 import { BarChart } from "@mui/x-charts/BarChart";
 import { prepareDataForPlot } from "./GraphCertificationResults";
-import { ChartsReferenceLine } from "@mui/x-charts/ChartsReferenceLine";
+import PhiusLimitLine from "./LimitLine";
 
 export function GraphPeakLoad(graphProps: {
   data: any[];
@@ -53,22 +53,8 @@ export function GraphPeakLoad(graphProps: {
         "#aecfe8", // Dehumidification Override
       ]}
     >
-      <ChartsReferenceLine
-        y={graphProps.limits.heating}
-        lineStyle={{ strokeDasharray: "10 5", stroke: "#8f3c39", strokeWidth: "2" }}
-        labelStyle={{ fontSize: "0.6em", fill: "#8f3c39", fontWeight: "bold" }}
-        label={`Heating Limit`}
-        labelAlign="start"
-        className="test"
-      />
-      <ChartsReferenceLine
-        y={graphProps.limits.cooling}
-        lineStyle={{ strokeDasharray: "10 5", stroke: "#46759c", strokeWidth: "2" }}
-        labelStyle={{ fontSize: "0.6em", fill: "#46759c", fontWeight: "bold" }}
-        label={`Cooling Limit`}
-        labelAlign="end"
-        className="test"
-      />
+      <PhiusLimitLine value={graphProps.limits.heating} type="heating" />
+      <PhiusLimitLine value={graphProps.limits.cooling} type="cooling" />
     </BarChart>
   );
 }

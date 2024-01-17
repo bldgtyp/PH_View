@@ -1,6 +1,6 @@
 import { BarChart } from "@mui/x-charts/BarChart";
 import { prepareDataForPlot } from "./GraphCertificationResults";
-import { ChartsReferenceLine } from "@mui/x-charts/ChartsReferenceLine";
+import PhiusLimitLine from "./LimitLine";
 
 export function GraphAnnualEnergy(graphProps: { data: any[]; chartSettings: any; limitData: { total: number } }) {
   if (graphProps.data.length === 1) {
@@ -80,14 +80,7 @@ export function GraphAnnualEnergy(graphProps: { data: any[]; chartSettings: any;
       {...graphProps.chartSettings}
       yAxis={[{ ...graphProps.chartSettings.yAxis[0], max: 5000000 }]}
     >
-      <ChartsReferenceLine
-        y={graphProps.limitData.total}
-        lineStyle={{ strokeDasharray: "10 5", strokeWidth: "2" }}
-        labelStyle={{ fontSize: "0.6em", fontWeight: "bold" }}
-        label={`Phius Limit`}
-        labelAlign="end"
-        className="test"
-      />
+      <PhiusLimitLine value={graphProps.limitData.total} type="source" />
     </BarChart>
   );
 }

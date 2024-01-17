@@ -1,8 +1,8 @@
 {
-  "name": "ph-view-react",
+  "name": "proj_2305",
+  "homepage": "https://bldgtyp.github.io/proj_2305/",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ph-tools.github.io/PH_View_React/",
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",

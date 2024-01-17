@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import {
+  decimalCell,
   notesCell,
   datasheetRequired,
   TooltipHeader,
@@ -67,7 +68,9 @@ const tableFields = [
     headerName: "R/Inch Value",
     flex: 1,
     renderHeader: (params: any) => TooltipHeader(params, "Do we have a product specification? Yes/No"),
-    renderCell: (params: any) => parseFloat(params.value).toFixed(1),
+    renderCell: (params: any) => {
+      return decimalCell(params, 2);
+    },
   },
   {
     field: "link",

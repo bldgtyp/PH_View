@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Stack, Modal } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
-import { notesCell, InfoTooltipCell, generateGridColumns, generateDefaultRow } from "./DataGridItems";
+import { decimalCell, notesCell, InfoTooltipCell, generateGridColumns, generateDefaultRow } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
 import { apiUrlWindowUnitTypes } from "../../config";
 
@@ -37,8 +37,22 @@ const tableFields = [
     flex: 0.5,
     renderCell: (params: any) => notesCell(params),
   },
-  { field: "width", headerName: "Width", flex: 1 },
-  { field: "height", headerName: "Height", flex: 1 },
+  {
+    field: "width",
+    headerName: "Width",
+    flex: 1,
+    renderCell: (params: any) => {
+      return decimalCell(params, 2);
+    },
+  },
+  {
+    field: "height",
+    headerName: "Height",
+    flex: 1,
+    renderCell: (params: any) => {
+      return decimalCell(params, 2);
+    },
+  },
   { field: "operation", headerName: "Operation", flex: 1 },
   { field: "useType", headerName: "Use Type", flex: 1 },
   { field: "glazing", headerName: "Glazing", flex: 1 },

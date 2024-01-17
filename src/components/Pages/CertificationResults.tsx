@@ -1,5 +1,5 @@
 import Page from "./Page";
-import CertificationResultsDataGrid from "../Tables/CertResultsContainer";
+import CertificationResultsDataGrid from "./CertResultsContainer";
 
 function CertificationResults() {
   return (
