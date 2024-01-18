@@ -13,7 +13,7 @@ function ButtonPhiusCalendar(props: { phiusNumber?: string }) {
         component="a"
         href="https://analytics.zoho.com/open-view/2359498000004277863"
       >
-        Go to PhiusReview Calendar (Phius Project # {props.phiusNumber})
+        Go to Phius Review Calendar (Phius Project # {props.phiusNumber})
       </Button>
     );
   } else {

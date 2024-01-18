@@ -121,6 +121,7 @@ function AppliancesDataGrid() {
       clearTimeout(timerId);
       setShowModal(false);
     };
+
     fetchProjectData();
   }, [projectId]);
 

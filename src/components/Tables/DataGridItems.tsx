@@ -187,7 +187,7 @@ export const InfoTooltipCell = (params: any) =>
 type TableField = {
   field: string;
   headerName: string;
-  flex: number;
+  flex?: number;
   renderCell?: any;
   renderHeader?: any;
 };

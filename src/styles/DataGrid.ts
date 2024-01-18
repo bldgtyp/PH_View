@@ -95,7 +95,6 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     verticalAlign: "text-bottom",
     boxShadow: "inset 0 0 0.05em 0.02em red, 0 0 0.4em 0.01em red",
     backgroundColor: "red",
-    opacity: 0.6,
     '&::after': {
       content: '"?"',
       color: "white",
