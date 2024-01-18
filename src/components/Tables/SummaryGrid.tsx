@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Stack, Modal, Tab } from "@mui/material";
+import { Box, Stack, Modal } from "@mui/material";
 import { generateDefaultRow } from "./DataGridItems";
 import fetchData from "../fetchAirTable";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -37,7 +37,7 @@ function makeDisplayName(categoryName: string) {
   return categoryName
     .replace(/_/g, " ")
     .toLowerCase()
-    .replace(/(^\s*\w|[\.\!\?]\s*\w)/g, function (c) {
+    .replace(/(^\s*\w|[.!?]\s*\w)/g, function (c) {
       return c.toUpperCase();
     });
 }
