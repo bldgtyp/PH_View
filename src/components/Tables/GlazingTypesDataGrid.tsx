@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Box, Stack, Modal } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import { generateGridColumns, generateDefaultRow } from "../common/DataGridFunctions";
 import { CheckboxForDatasheet } from "../common/CheckboxForDatasheet";
