@@ -1,6 +1,6 @@
-import Page from "./Page";
-import ContentBlock from "./../components/layout/ContentBlock";
 import { Stack } from "@mui/material";
+import Page from "./Page";
+import ContentBlock from "../components/layout/ContentBlock";
 
 function Constructions() {
   return (

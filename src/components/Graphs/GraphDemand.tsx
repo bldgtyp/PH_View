@@ -1,6 +1,6 @@
-import { prepareDataForPlot } from "./GraphCertificationResults";
 import { BarChart } from "@mui/x-charts/BarChart";
-import PhiusLimitLine from "./LimitLine";
+import { prepareDataForPlot } from "../../components/graphs/GraphCertificationResults";
+import PhiusLimitLine from "../../components/graphs/LimitLine";
 
 export function GraphAnnualDemand(graphProps: {
   data: any[];

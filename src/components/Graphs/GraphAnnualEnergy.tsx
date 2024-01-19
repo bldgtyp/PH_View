@@ -1,6 +1,6 @@
 import { BarChart } from "@mui/x-charts/BarChart";
-import { prepareDataForPlot } from "./GraphCertificationResults";
-import PhiusLimitLine from "./LimitLine";
+import { prepareDataForPlot } from "../../components/graphs/GraphCertificationResults";
+import PhiusLimitLine from "../../components/graphs/LimitLine";
 
 export function GraphAnnualEnergy(graphProps: { data: any[]; chartSettings: any; limitData: { total: number } }) {
   if (graphProps.data.length === 1) {

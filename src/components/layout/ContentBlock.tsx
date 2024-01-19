@@ -1,5 +1,5 @@
-import "../../styles/ContentBlock.css";
 import { Paper } from "@mui/material";
+import "../../styles/ContentBlock.css";
 
 function ContentBlock(props: any) {
   return (

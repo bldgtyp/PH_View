@@ -6,10 +6,10 @@ import { CheckboxForDatasheet } from "../common/CheckboxForDatasheet";
 import { CheckboxForSpecification } from "../common/CheckboxForSpecification";
 import { LinkIconWithDefault } from "../common/LinkIconWithDefault";
 import { TooltipWithInfo } from "../common/TooltipWithInfo";
-import { ValueAsDecimal } from "../../formatters/ValueAsDecimal";
 import { TooltipWithComment } from "../common/TooltipWithComment";
 import { TooltipHeader } from "../common/TooltipHeader";
 import LoadingModal from "../common/LoadingModal";
+import { ValueAsDecimal } from "../../formatters/ValueAsDecimal";
 import useLoadDataGridFromAirTable from "../../hooks/useLoadDataGridFromAirTable";
 
 // ----------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { datasheetRequired } from "./../components/common/CheckboxForDatasheet";
-import fetchData from "./fetchAirTable";
+import { datasheetRequired } from "../components/common/CheckboxForDatasheet";
+import fetchData from "../hooks/fetchAirTable";
 
 /**
  * Custom hook for fetching DataGrid data from an AirTable Table.

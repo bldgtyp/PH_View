@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { Stack } from "@mui/material";
-import { generateDefaultRow } from "../common/DataGridFunctions";
 import { useLocation } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -8,6 +7,8 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+
+import { generateDefaultRow } from "../common/DataGridFunctions";
 import LoadingModal from "../common/LoadingModal";
 import useLoadDataGridFromAirTable from "../../hooks/useLoadDataGridFromAirTable";
 import ValueAsSentenceCase from "../../formatters/ValueAsSentenceCase";

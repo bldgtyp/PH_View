@@ -1,6 +1,6 @@
 import { BarChart } from "@mui/x-charts/BarChart";
-import { prepareDataForPlot } from "./GraphCertificationResults";
-import PhiusLimitLine from "./LimitLine";
+import { prepareDataForPlot } from "../../components/graphs/GraphCertificationResults";
+import PhiusLimitLine from "../../components/graphs/LimitLine";
 
 export function GraphPeakLoad(graphProps: {
   data: any[];

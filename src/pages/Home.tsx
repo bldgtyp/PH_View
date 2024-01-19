@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Box, Modal } from "@mui/material";
+
+import ContentBlock from "../components/layout/ContentBlock";
+import SummaryGrid from "../components/tables/HomeSummaryDataGrid";
 import fetchData from "../hooks/fetchAirTable";
 import Page from "./Page";
-import ContentBlock from "./../components/layout/ContentBlock";
 import HomeCertificationStatus from "./HomeCertificationStatus";
 import HomeCertificationLinks from "./HomeCertificationLinks";
-import SummaryGrid from "./../components/tables/HomeSummaryDataGrid";
 
 type AirTableRecord = { id: string; fields: { FIELD_NAME?: string; SECTION?: string; VALUE?: string } };
 

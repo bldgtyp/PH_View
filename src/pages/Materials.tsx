@@ -1,7 +1,7 @@
-import Page from "./Page";
-import ContentBlock from "./../components/layout/ContentBlock";
 import { Stack } from "@mui/material";
-import MaterialsDataGrid from "./../components/tables/MaterialsDataGrid";
+import ContentBlock from "../components/layout/ContentBlock";
+import MaterialsDataGrid from "../components/tables/MaterialsDataGrid";
+import Page from "./Page";
 
 function RequiredDocumentation() {
   return (

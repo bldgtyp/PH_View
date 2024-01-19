@@ -1,7 +1,7 @@
 import { Stack, Typography, Paper } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import SidebarItem from "./SidebarItem";
-
 import { ReactComponent as HomeIcon } from "../../assets/icons/sidebar/home.svg";
 import { ReactComponent as CertResultsIcon } from "../../assets/icons/sidebar/cert_results.svg";
 import { ReactComponent as GlazingTypeIcon } from "../../assets/icons/sidebar/glazing-type.svg";
@@ -14,7 +14,6 @@ import { ReactComponent as LightIcon } from "../../assets/icons/sidebar/lighting
 import { ReactComponent as ApplianceIcon } from "../../assets/icons/sidebar/appliances.svg";
 import { ReactComponent as MaterialIcon } from "../../assets/icons/sidebar/material.svg";
 import { ReactComponent as ConstructionIcon } from "../../assets/icons/sidebar/constructions.svg";
-import { useNavigate, useLocation } from "react-router-dom";
 
 function Sidebar() {
   const navigate = useNavigate();

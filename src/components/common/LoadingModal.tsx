@@ -1,5 +1,5 @@
-import "../../styles/Modal.css";
 import { Box, Modal } from "@mui/material";
+import "../../styles/Modal.css";
 
 /**
  * Renders a loading modal-window component.

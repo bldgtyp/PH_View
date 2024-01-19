@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Stack, Modal, Box } from "@mui/material";
-import { generateDefaultRow } from "./../components/common/DataGridFunctions";
-import { TooltipWithInfo } from "./../components/common/TooltipWithInfo";
+import { generateDefaultRow } from "../components/common/DataGridFunctions";
+import { TooltipWithInfo } from "../components/common/TooltipWithInfo";
+import ContentBlock from "../components/layout/ContentBlock";
+import ResultDataGrid from "../components/tables/ResultsDataGrids";
+import CertificationResultGraphs from "../components/graphs/GraphCertificationResults";
 import fetchData from "../hooks/fetchAirTable";
-import ContentBlock from "./../components/layout/ContentBlock";
-import ResultDataGrid from "./../components/tables/ResultsDataGrids";
-import CertificationResultGraphs from "./../components/graphs/GraphCertificationResults";
 import Page from "./Page";
 
 // ----------------------------------------------------------------------------

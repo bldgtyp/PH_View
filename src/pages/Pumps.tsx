@@ -1,7 +1,7 @@
-import Page from "./Page";
-import ContentBlock from "./../components/layout/ContentBlock";
 import { Stack } from "@mui/material";
-import PumpsDataGrid from "./../components/tables/PumpDataGrid";
+import Page from "./Page";
+import ContentBlock from "../components/layout/ContentBlock";
+import PumpsDataGrid from "../components/tables/PumpDataGrid";
 
 function RequiredDocumentation() {
   return (

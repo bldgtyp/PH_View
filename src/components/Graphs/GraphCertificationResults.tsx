@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
-import { GraphAnnualEnergy } from "./GraphAnnualEnergy";
-import { GraphAnnualDemand } from "./GraphDemand";
-import { GraphPeakLoad } from "./GraphPeakLoad";
+import { GraphAnnualEnergy } from "../../components/graphs/GraphAnnualEnergy";
+import { GraphAnnualDemand } from "../../components/graphs/GraphDemand";
+import { GraphPeakLoad } from "../../components/graphs/GraphPeakLoad";
 
 export type GraphProps = {
   key: string;

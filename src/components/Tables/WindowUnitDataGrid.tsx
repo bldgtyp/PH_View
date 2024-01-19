@@ -3,9 +3,9 @@ import { Box, Stack } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import { generateGridColumns, generateDefaultRow } from "../common/DataGridFunctions";
 import { TooltipWithInfo } from "../common/TooltipWithInfo";
-import { ValueAsDecimal } from "../../formatters/ValueAsDecimal";
 import { TooltipWithComment } from "../common/TooltipWithComment";
 import LoadingModal from "../common/LoadingModal";
+import { ValueAsDecimal } from "../../formatters/ValueAsDecimal";
 import useLoadDataGridFromAirTable from "../../hooks/useLoadDataGridFromAirTable";
 
 // ----------------------------------------------------------------------------
