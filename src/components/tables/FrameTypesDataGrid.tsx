@@ -108,7 +108,7 @@ const defaultRow = generateDefaultRow(tableFields);
 function FrameTypesDataGrid() {
   // Load in the table data from the Database
   const { projectId } = useParams();
-  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "frame_types", projectId);
+  const { showModal, rowData } = useLoadDataGridFromAirTable<FrameTypesRecord>(defaultRow, "frame_types", projectId);
 
   // --------------------------------------------------------------------------
   // Render the component

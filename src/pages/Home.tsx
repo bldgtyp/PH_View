@@ -36,7 +36,7 @@ function Home() {
     }, 1000);
 
     const fetchProjectData = async () => {
-      const d = await fetchData(`${projectId}/config`);
+      const d: any = await fetchData(`${projectId}/config`);
       // handle the fetched data
       setCertStatusData(flattenData(d.filter((item: any) => item.fields.SECTION === "CERT_STATUS")));
       setCertLinkData(flattenData(d.filter((item: any) => item.fields.SECTION === "LINKS")));

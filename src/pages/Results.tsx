@@ -183,7 +183,7 @@ function Results() {
 
     // Fetch the data from AirTable and build up the new DataGrid rows
     const fetchProjectData = async () => {
-      const d = await fetchData(`${projectId}/cert_results`);
+      const d: any = await fetchData(`${projectId}/cert_results`);
 
       // ----------------------------------------------------------------------
       // Break out the data out into separate Objects by its 'type' attribute

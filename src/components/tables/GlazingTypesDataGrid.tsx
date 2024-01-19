@@ -96,7 +96,11 @@ const defaultRow = generateDefaultRow(tableFields);
 function GlazingTypesDataGrid() {
   // Load in the table data from the Database
   const { projectId } = useParams();
-  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "glazing_types", projectId);
+  const { showModal, rowData } = useLoadDataGridFromAirTable<GlazingTypesRecord>(
+    defaultRow,
+    "glazing_types",
+    projectId
+  );
 
   // --------------------------------------------------------------------------
   // Render the component

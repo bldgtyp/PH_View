@@ -6,7 +6,7 @@ import LinkIcon from "@mui/icons-material/Link";
  * @param item - The item to check.
  * @returns a copy of the item with the datasheet required field set.
  */
-export const datasheetRequired = (item: { id: string; fields: any }) => {
+export const datasheetRequired = (item: { id: string; createdTime: string; fields: any }) => {
   let itemCopy = { ...item };
 
   let datasheetRequired = false;

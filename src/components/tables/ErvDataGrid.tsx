@@ -116,7 +116,7 @@ const defaultRow = generateDefaultRow(tableFields);
 function ErvDataGrid() {
   // Load in the table data from the Database
   const { projectId } = useParams();
-  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "erv_units", projectId);
+  const { showModal, rowData } = useLoadDataGridFromAirTable<ErvRecord>(defaultRow, "erv_units", projectId);
 
   // --------------------------------------------------------------------------
   // Render the component

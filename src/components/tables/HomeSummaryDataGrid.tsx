@@ -83,7 +83,7 @@ function HomeSummaryDataGrid() {
   // Load in the table data from the Database
   const location = useLocation();
   const { projectId } = useParams();
-  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "summary", projectId);
+  const { showModal, rowData } = useLoadDataGridFromAirTable<SummaryRecord>(defaultRow, "summary", projectId);
 
   // --------------------------------------------------------------------------
   // Render the component

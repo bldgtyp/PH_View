@@ -10,7 +10,17 @@ import fetchData from "../hooks/fetchAirTable";
  * @param projectId - The project ID ('proj_2305', etc. ).
  * @returns An object containing the showModal state and rowData.
  */
-const useLoadDataGridFromAirTable = (defaultRow: Array<any>, page: string, projectId?: string) => {
+function useLoadDataGridFromAirTable<T>(
+  defaultRow: Array<any>,
+  page: string,
+  projectId?: string
+): { showModal: boolean; rowData: any[] } {
+  type AirTableRecord = {
+    id: string;
+    createdTime: string;
+    fields: T;
+  };
+
   const [showModal, setShowModal] = useState(false);
   const [rowData, setRowData] = useState<Array<any>>(defaultRow);
 
@@ -26,11 +36,11 @@ const useLoadDataGridFromAirTable = (defaultRow: Array<any>, page: string, proje
     }, 1000);
 
     const fetchProjectData = async () => {
-      const fetchedData = await fetchData(`${projectId}/${page}`);
+      const fetchedData: AirTableRecord[] = await fetchData(`${projectId}/${page}`);
 
       // Use the AirTable record data as the row-data
       // Add the record ID as the row-ID
-      const newRows = fetchedData.map((item: any) => {
+      const newRows: Record<string, any>[] = fetchedData.map((item) => {
         item = datasheetRequired(item);
         return { id: item.id, ...item.fields };
       });
@@ -46,6 +56,6 @@ const useLoadDataGridFromAirTable = (defaultRow: Array<any>, page: string, proje
   }, [projectId]);
 
   return { showModal, rowData };
-};
+}
 
 export default useLoadDataGridFromAirTable;

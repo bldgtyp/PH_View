@@ -81,7 +81,7 @@ const defaultRow = generateDefaultRow(tableFields);
 function FanDataGrid() {
   // Load in the table data from the Database
   const { projectId } = useParams();
-  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "fans", projectId);
+  const { showModal, rowData } = useLoadDataGridFromAirTable<FanRecord>(defaultRow, "fans", projectId);
 
   // --------------------------------------------------------------------------
   // Render the component

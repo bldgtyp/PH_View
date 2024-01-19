@@ -75,7 +75,11 @@ const defaultRow = generateDefaultRow(tableFields);
 function WindowUnitDataGrid() {
   // Load in the table data from the Database
   const { projectId } = useParams();
-  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "window_unit_types", projectId);
+  const { showModal, rowData } = useLoadDataGridFromAirTable<WindowUnitTypesRecord>(
+    defaultRow,
+    "window_unit_types",
+    projectId
+  );
 
   // --------------------------------------------------------------------------
   // Render the component

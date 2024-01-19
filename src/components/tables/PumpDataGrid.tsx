@@ -63,7 +63,7 @@ const defaultRow = generateDefaultRow(tableFields);
 function PumpsDataGrid() {
   // Load in the table data from the Database
   const { projectId } = useParams();
-  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "pumps", projectId);
+  const { showModal, rowData } = useLoadDataGridFromAirTable<PumpsRecord>(defaultRow, "pumps", projectId);
 
   // --------------------------------------------------------------------------
   // Render the component
