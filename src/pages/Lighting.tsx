@@ -1,7 +1,7 @@
 import Page from "./Page";
-import ContentBlock from "../ContentBlock";
+import ContentBlock from "../components/layout/ContentBlock";
 import { Stack } from "@mui/material";
-import PumpsDataGrid from "../Tables/PumpDataGrid";
+import LightingDataGrid from "../components/tables/LightingDataGrid";
 
 function RequiredDocumentation() {
   return (
@@ -23,8 +23,9 @@ function RequiredDocumentation() {
               <p>A PDF datasheet for the specified product which includes all of the required performance values:</p>
             </Stack>
             <ul>
-              <li>Max flow-rate (g/min)</li>
-              <li>Operating power (HP / Watts)</li>
+              <li>Output (lumens)</li>
+              <li>Operating power (Watts)</li>
+              <li>Energy Star Certified?</li>
             </ul>
           </li>
         </ul>
@@ -33,17 +34,17 @@ function RequiredDocumentation() {
   );
 }
 
-function Pumps() {
+function Lighting() {
   return (
     <Page>
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>
       <ContentBlock>
-        <PumpsDataGrid />
+        <LightingDataGrid />
       </ContentBlock>
     </Page>
   );
 }
 
-export default Pumps;
+export default Lighting;

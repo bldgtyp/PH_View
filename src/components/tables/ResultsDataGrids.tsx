@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Box, Stack } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
-import { InfoTooltipCell, generateGridColumns } from "./DataGridItems";
+import { generateGridColumns } from "../common/DataGridFunctions";
+import { TooltipWithInfo } from "../common/TooltipWithInfo";
 
 type DataGridRow = {
   key: string;
@@ -19,7 +20,7 @@ const tableFields = [
     field: "display_name",
     headerName: "Name",
     flex: 1,
-    renderCell: (params: any) => InfoTooltipCell(params),
+    renderCell: (params: any) => TooltipWithInfo(params),
   },
   {
     key: "unit",

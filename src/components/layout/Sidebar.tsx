@@ -1,18 +1,19 @@
 import { Stack, Typography, Paper } from "@mui/material";
 
 import SidebarItem from "./SidebarItem";
-import { ReactComponent as HomeIcon } from "../icons/sidebar/home.svg";
-import { ReactComponent as CertResultsIcon } from "../icons/sidebar/cert_results.svg";
-import { ReactComponent as GlazingTypeIcon } from "../icons/sidebar/glazing-type.svg";
-import { ReactComponent as FrameTypeIcon } from "../icons/sidebar/frame-type.svg";
-import { ReactComponent as UnitTypeIcon } from "../icons/sidebar/unit-type.svg";
-import { ReactComponent as FanIcon } from "../icons/sidebar/fans.svg";
-import { ReactComponent as PumpIcon } from "../icons/sidebar/pumps.svg";
-import { ReactComponent as VentilatorIcon } from "../icons/sidebar/ventilators.svg";
-import { ReactComponent as LightIcon } from "../icons/sidebar/lighting.svg";
-import { ReactComponent as ApplianceIcon } from "../icons/sidebar/appliances.svg";
-import { ReactComponent as MaterialIcon } from "../icons/sidebar/material.svg";
-import { ReactComponent as ConstructionIcon } from "../icons/sidebar/constructions.svg";
+
+import { ReactComponent as HomeIcon } from "../../assets/icons/sidebar/home.svg";
+import { ReactComponent as CertResultsIcon } from "../../assets/icons/sidebar/cert_results.svg";
+import { ReactComponent as GlazingTypeIcon } from "../../assets/icons/sidebar/glazing-type.svg";
+import { ReactComponent as FrameTypeIcon } from "../../assets/icons/sidebar/frame-type.svg";
+import { ReactComponent as UnitTypeIcon } from "../../assets/icons/sidebar/unit-type.svg";
+import { ReactComponent as FanIcon } from "../../assets/icons/sidebar/fans.svg";
+import { ReactComponent as PumpIcon } from "../../assets/icons/sidebar/pumps.svg";
+import { ReactComponent as VentilatorIcon } from "../../assets/icons/sidebar/ventilators.svg";
+import { ReactComponent as LightIcon } from "../../assets/icons/sidebar/lighting.svg";
+import { ReactComponent as ApplianceIcon } from "../../assets/icons/sidebar/appliances.svg";
+import { ReactComponent as MaterialIcon } from "../../assets/icons/sidebar/material.svg";
+import { ReactComponent as ConstructionIcon } from "../../assets/icons/sidebar/constructions.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function Sidebar() {

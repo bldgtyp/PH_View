@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Stack, Modal } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
-import { decimalCell, notesCell, InfoTooltipCell, generateGridColumns, generateDefaultRow } from "./DataGridItems";
-import fetchData from "../fetchAirTable";
+import { generateGridColumns, generateDefaultRow } from "../common/DataGridFunctions";
+import { TooltipWithInfo } from "../common/TooltipWithInfo";
+import { ValueAsDecimal } from "../../formatters/ValueAsDecimal";
+import { TooltipWithComment } from "../common/TooltipWithComment";
+import LoadingModal from "../common/LoadingModal";
+import useLoadDataGridFromAirTable from "../../hooks/useLoadDataGridFromAirTable";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
@@ -26,40 +29,40 @@ type WindowUnitTypesRecord = { id: string; createdTime: string; fields: WindowUn
 // Define the rows and columns
 const tableFields = [
   {
-    field: "identifier",
+    field: "DISPLAY_NAME",
     headerName: "ID",
     flex: 1,
-    renderCell: (params: any) => InfoTooltipCell(params),
+    renderCell: (params: any) => TooltipWithInfo(params),
   },
   {
-    field: "notes",
+    field: "NOTES",
     headerName: "Notes",
     flex: 0.5,
-    renderCell: (params: any) => notesCell(params),
+    renderCell: (params: any) => TooltipWithComment(params),
   },
   {
-    field: "width",
+    field: "WIDTH [FT-IN]",
     headerName: "Width",
     flex: 1,
     renderCell: (params: any) => {
-      return decimalCell(params, 2);
+      return ValueAsDecimal(params, 2);
     },
   },
   {
-    field: "height",
+    field: "HEIGHT [FT-IN]",
     headerName: "Height",
     flex: 1,
     renderCell: (params: any) => {
-      return decimalCell(params, 2);
+      return ValueAsDecimal(params, 2);
     },
   },
-  { field: "operation", headerName: "Operation", flex: 1 },
-  { field: "useType", headerName: "Use Type", flex: 1 },
-  { field: "glazing", headerName: "Glazing", flex: 1 },
-  { field: "frame_left", headerName: "Frame: Left", flex: 1 },
-  { field: "frame_right", headerName: "Frame: Right", flex: 1 },
-  { field: "frame_top", headerName: "Frame: Top", flex: 1 },
-  { field: "frame_bottom", headerName: "Frame: Bottom", flex: 1 },
+  { field: "OPERATION", headerName: "Operation", flex: 1 },
+  { field: "USE_TYPE", headerName: "Use Type", flex: 1 },
+  { field: "GLAZING_NAME", headerName: "Glazing", flex: 1 },
+  { field: "FRAME ELEMENT NAME: LEFT", headerName: "Frame: Left", flex: 1 },
+  { field: "FRAME ELEMENT NAME: RIGHT", headerName: "Frame: Right", flex: 1 },
+  { field: "FRAME ELEMENT NAME: TOP", headerName: "Frame: Top", flex: 1 },
+  { field: "FRAME ELEMENT NAME: BOTTOM", headerName: "Frame: Bottom", flex: 1 },
 ];
 
 // Create the columns object based on tableFields and then
@@ -70,51 +73,16 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function WindowUnitDataGrid() {
-  let { projectId } = useParams();
-  const [showModal, setShowModal] = useState(false);
-  const [rowData, setRowData] = useState<Array<WindowUnitTypesRecord>>(defaultRow);
-
-  useEffect(() => {
-    // Show modal if loading takes longer than 1s
-    let timerId: NodeJS.Timeout;
-    timerId = setTimeout(() => {
-      setShowModal(true);
-    }, 1000);
-
-    // Fetch the data from AirTable
-    const fetchProjectData = async () => {
-      const fetchedData = await fetchData(`${projectId}/window_unit_types`);
-      const newRows = fetchedData.map((item: any) => ({
-        id: item.id,
-        identifier: item.fields.DISPLAY_NAME,
-        width: item.fields["WIDTH [FT-IN]"],
-        height: item.fields["HEIGHT [FT-IN]"],
-        operation: item.fields.OPERATION,
-        useType: item.fields.USE_TYPE,
-        glazing: item.fields.GLAZING_NAME,
-        frame_left: item.fields["FRAME ELEMENT NAME: LEFT"],
-        frame_right: item.fields["FRAME ELEMENT NAME: RIGHT"],
-        frame_top: item.fields["FRAME ELEMENT NAME: TOP"],
-        frame_bottom: item.fields["FRAME ELEMENT NAME: BOTTOM"],
-      }));
-
-      // ---Cleanup
-      newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
-      clearTimeout(timerId);
-      setShowModal(false);
-    };
-    fetchProjectData();
-  }, [projectId]);
+  // Load in the table data from the Database
+  const { projectId } = useParams();
+  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "window_unit_types", projectId);
 
   // --------------------------------------------------------------------------
   // Render the component
   return (
     <>
-      {showModal ? (
-        <Modal open={showModal}>
-          <Box className="modal-box-loading">Loading Project Data...</Box>
-        </Modal>
-      ) : null}
+      {" "}
+      <LoadingModal showModal={showModal} />
       <Stack className="content-block-heading" spacing={1}>
         <h3>Window Unit Types:</h3>
       </Stack>

@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Stack, Modal, Box } from "@mui/material";
-import { InfoTooltipCell, generateDefaultRow } from "../Tables/DataGridItems";
-import fetchData from "../fetchAirTable";
-import ContentBlock from "../ContentBlock";
-import ResultDataGrid from "../Tables/CertResultsDataGrids";
-import CertificationResultGraphs from "../Graphs/GraphCertificationResults";
+import { generateDefaultRow } from "../components/common/DataGridFunctions";
+import { TooltipWithInfo } from "../components/common/TooltipWithInfo";
+import fetchData from "../hooks/fetchAirTable";
+import ContentBlock from "../components/layout/ContentBlock";
+import ResultDataGrid from "../components/tables/ResultsDataGrids";
+import CertificationResultGraphs from "../components/graphs/GraphCertificationResults";
+import Page from "./Page";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable and DataGrid types
@@ -34,7 +36,7 @@ const tableFields = [
     field: "Name",
     headerName: "ID",
     flex: 1,
-    renderCell: (params: any) => InfoTooltipCell(params),
+    renderCell: (params: any) => TooltipWithInfo(params),
   },
   {
     key: "unit",
@@ -157,7 +159,7 @@ function createLoadLimits(heatingData: any[], coolingData: any[]) {
 }
 
 // ----------------------------------------------------------------------------
-function CertResultDataGrid() {
+function Results() {
   let { projectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   // RowData to Plot --
@@ -240,7 +242,7 @@ function CertResultDataGrid() {
   // Render the Graph Group Component
 
   return (
-    <>
+    <Page>
       {showModal ? (
         <Modal open={showModal}>
           <Box className="modal-box-loading">Loading Project Data...</Box>
@@ -283,8 +285,8 @@ function CertResultDataGrid() {
       <ContentBlock>
         <ResultDataGrid title="Peak Cooling Load" rowData={coolingLoadRowData} />
       </ContentBlock>
-    </>
+    </Page>
   );
 }
 
-export default CertResultDataGrid;
+export default Results;

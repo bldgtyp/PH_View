@@ -1,4 +1,4 @@
-import "../styles/SidebarItem.css";
+import "../../styles/SidebarItem.css";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { ListItemText, ListItemButton } from "@mui/material";
 

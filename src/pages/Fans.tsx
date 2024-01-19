@@ -1,7 +1,7 @@
 import Page from "./Page";
-import ContentBlock from "../ContentBlock";
+import ContentBlock from "../components/layout/ContentBlock";
 import { Stack } from "@mui/material";
-import MaterialsDataGrid from "../Tables/MaterialsDataGrid";
+import FanDataGrid from "../components/tables/FanDataGrid";
 
 function RequiredDocumentation() {
   return (
@@ -13,12 +13,18 @@ function RequiredDocumentation() {
         <ul>
           <li>
             <Stack spacing={1} direction="row">
-              <h4>Data Sheet:</h4>
+              <h4>Product Specification:</h4>
+              <p>A product specification included in the drawing-set which is used as the basis-of-design.</p>
+            </Stack>
+          </li>
+          <li>
+            <Stack spacing={1} direction="row">
+              <h4>Product Data Sheet:</h4>
               <p>A PDF datasheet for the specified product which includes all of the required performance values:</p>
             </Stack>
             <ul>
-              <li>Thermal Conductivity (Btu/hr-ft-F) or</li>
-              <li>Thermal Resistivity (hr-ft2-F/Btu-in)</li>
+              <li>Max flow-rate (cfm)</li>
+              <li>Operating power (HP / Watts)</li>
             </ul>
           </li>
         </ul>
@@ -27,17 +33,17 @@ function RequiredDocumentation() {
   );
 }
 
-function Materials() {
+function Fans() {
   return (
     <Page>
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>
       <ContentBlock>
-        <MaterialsDataGrid />
+        <FanDataGrid />
       </ContentBlock>
     </Page>
   );
 }
 
-export default Materials;
+export default Fans;

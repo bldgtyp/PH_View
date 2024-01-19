@@ -1,7 +1,7 @@
 import Page from "./Page";
-import ErvDataGrid from "../Tables/ErvDataGrid";
-import ContentBlock from "../ContentBlock";
+import ContentBlock from "../components/layout/ContentBlock";
 import { Stack } from "@mui/material";
+import GlazingTypesDataGrid from "../components/tables/GlazingTypesDataGrid";
 
 function RequiredDocumentation() {
   return (
@@ -23,11 +23,8 @@ function RequiredDocumentation() {
               <p>A PDF datasheet for the specified product which includes all of the required performance values:</p>
             </Stack>
             <ul>
-              <li>Heat-Recovery Efficiency (%)</li>
-              <li>Moisture-Recovery Efficiency (%)</li>
-              <li>Average Fan-Power (W/cfm)</li>
-              <li>Outside Air Filter Type</li>
-              <li>Extract Air Filter Type</li>
+              <li>Center-of-Glass U-Value (Btu/hr-ft2-F)</li>
+              <li>g-Value / SHGC (%)</li>
             </ul>
           </li>
           <li>
@@ -36,18 +33,19 @@ function RequiredDocumentation() {
             </Stack>
             <ol>
               <li>
-                <a href="https://www.ahrinet.org/search-standards/ahri-1060-i-p-and-1061-si-performance-rating-air-air-exchangers-energy-recovery-ventilation">
-                  AHRI 1060 Certificate
+                <a href="https://www.phius.org/window-database">Phius Verified Window Performance</a>
+              </li>
+              <li>
+                <a href="https://calumen.com/">Supplier Test Report (Calumen)</a>
+              </li>
+              <li>
+                <a href="https://standards.iteh.ai/catalog/standards/cen/6b5e33d2-5527-414b-beab-1779618a365a/en-673-2011">
+                  EN-673 (U-Value)
                 </a>
               </li>
               <li>
-                <a href="https://www.hvi.org/resources/publications/home-ventilation-guide-articles/hvi-certified-ventilation-performance/">
-                  HVI Test Certificate
-                </a>
-              </li>
-              <li>
-                <a href="https://passivehouse.com/01_passivehouseinstitute/02_expertise/01_researchinbuildingphysics/03_Ventilationsystems/03_Ventilationsystems.html">
-                  PHI Test Certificate
+                <a href="https://standards.iteh.ai/catalog/standards/cen/511a6697-5bf9-4bf1-ba5d-dfe9cfd01aa8/en-410-2011">
+                  EN-410 (g-Value)
                 </a>
               </li>
             </ol>
@@ -58,17 +56,17 @@ function RequiredDocumentation() {
   );
 }
 
-function Ventilation() {
+function GlazingTypes() {
   return (
     <Page>
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>
       <ContentBlock>
-        <ErvDataGrid />
+        <GlazingTypesDataGrid />
       </ContentBlock>
     </Page>
   );
 }
 
-export default Ventilation;
+export default GlazingTypes;

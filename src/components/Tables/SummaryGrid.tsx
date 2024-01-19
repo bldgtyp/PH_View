@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Stack, Modal } from "@mui/material";
-import { generateDefaultRow } from "./DataGridItems";
-import fetchData from "../fetchAirTable";
+import { generateDefaultRow } from "../common/DataGridFunctions";
+import fetchData from "../../hooks/fetchAirTable";
 import { useLocation } from "react-router-dom";
 
 import Table from "@mui/material/Table";
@@ -11,6 +11,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import LoadingModal from "../common/LoadingModal";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
@@ -88,48 +89,39 @@ const tableFields = [
 const defaultRow = generateDefaultRow(tableFields);
 
 function SummaryDataGrid() {
-  let { projectId } = useParams();
-  const [showModal, setShowModal] = useState(false);
-  const [rowData, setRowData] = useState<Array<SummaryRecord>>(defaultRow);
-  const location = useLocation();
+  // let { projectId } = useParams();
+  // const { isOpen: showModal, openModal, closeModal } = useLoadingModal();
+  // const [rowData, setRowData] = useState<Array<SummaryRecord>>(defaultRow);
+  // const location = useLocation();
+  // const clear = useTimeout(() => openModal());
 
-  useEffect(() => {
-    // Show modal if loading takes longer than 1s
-    let timerId: NodeJS.Timeout;
-    timerId = setTimeout(() => {
-      setShowModal(true);
-    }, 1000);
+  // useEffect(() => {
+  //   // Fetch the data from AirTable
+  //   const fetchProjectData = async () => {
+  //     const fetchedData = await fetchData(`${projectId}/summary`);
+  //     const newRows = fetchedData.map((item: SummaryRecord) => {
+  //       return {
+  //         id: item.id,
+  //         category: item.fields.CATEGORY,
+  //         missing_specs: item.fields.MISSING_SPECS,
+  //         missing_datasheets: item.fields.MISSING_DATASHEETS,
+  //         notes: item.fields.NOTES,
+  //       };
+  //     });
 
-    // Fetch the data from AirTable
-    const fetchProjectData = async () => {
-      const fetchedData = await fetchData(`${projectId}/summary`);
-      const newRows = fetchedData.map((item: SummaryRecord) => {
-        return {
-          id: item.id,
-          category: item.fields.CATEGORY,
-          missing_specs: item.fields.MISSING_SPECS,
-          missing_datasheets: item.fields.MISSING_DATASHEETS,
-          notes: item.fields.NOTES,
-        };
-      });
-
-      // ---Cleanup
-      newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
-      clearTimeout(timerId);
-      setShowModal(false);
-    };
-    fetchProjectData();
-  }, [projectId]);
+  //     // ---Cleanup
+  //     newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
+  //     clear();
+  //     closeModal();
+  //   };
+  //   fetchProjectData();
+  // }, [projectId]);
 
   // --------------------------------------------------------------------------
   // Render the component
   return (
     <>
-      {showModal ? (
-        <Modal open={showModal}>
-          <Box className="modal-box-loading">Loading Project Data...</Box>
-        </Modal>
-      ) : null}
+      {/* <LoadingModal showModal={showModal} />
       <Stack className="content-block-heading" spacing={1}>
         <h3>Items Needed to Complete Passive House Certification:</h3>
       </Stack>
@@ -156,7 +148,7 @@ function SummaryDataGrid() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
     </>
   );
 }

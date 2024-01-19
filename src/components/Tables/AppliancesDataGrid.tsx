@@ -1,19 +1,15 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Stack, Modal } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
-import {
-  notesCell,
-  datasheetRequired,
-  TooltipHeader,
-  datasheetCheckbox,
-  specificationCheckbox,
-  LinkCell,
-  InfoTooltipCell,
-  generateGridColumns,
-  generateDefaultRow,
-} from "./DataGridItems";
-import fetchData from "../fetchAirTable";
+import { generateGridColumns, generateDefaultRow } from "../common/DataGridFunctions";
+import { CheckboxForDatasheet } from "../common/CheckboxForDatasheet";
+import { CheckboxForSpecification } from "../common/CheckboxForSpecification";
+import { LinkIconWithDefault } from "../common/LinkIconWithDefault";
+import { TooltipWithInfo } from "../common/TooltipWithInfo";
+import { TooltipWithComment } from "../common/TooltipWithComment";
+import { TooltipHeader } from "../common/TooltipHeader";
+import LoadingModal from "../common/LoadingModal";
+import useLoadDataGridFromAirTable from "../../hooks/useLoadDataGridFromAirTable";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
@@ -37,42 +33,42 @@ type AppliancesRecord = { id: string; createdTime: string; fields: AppliancesFie
 // Define the rows and columns
 const tableFields = [
   {
-    field: "identifier",
+    field: "DISPLAY_NAME",
     headerName: "ID",
     flex: 1,
-    renderCell: (params: any) => InfoTooltipCell(params),
+    renderCell: (params: any) => TooltipWithInfo(params),
   },
   {
-    field: "notes",
+    field: "NOTES",
     headerName: "Notes",
     flex: 0.5,
-    renderCell: (params: any) => notesCell(params),
+    renderCell: (params: any) => TooltipWithComment(params),
   },
   {
-    field: "specification",
+    field: "SPECIFICATION",
     headerName: "Specification",
     flex: 1,
-    renderCell: (params: any) => specificationCheckbox(params),
+    renderCell: (params: any) => CheckboxForSpecification(params),
     renderHeader: (params: any) => TooltipHeader(params, "Do we have a product specification? Yes/No"),
   },
   {
-    field: "data_sheet",
+    field: "DATA_SHEET",
     headerName: "Data Sheet",
     flex: 1,
-    renderCell: (params: any) => datasheetCheckbox(params),
+    renderCell: (params: any) => CheckboxForDatasheet(params),
     renderHeader: (params: any) =>
       TooltipHeader(params, "Do we have a PDF data-sheet with the product's performance values? Yes/No"),
   },
-  { field: "description", headerName: "Type", flex: 1 },
-  { field: "manufacturer", headerName: "Manuf.", flex: 1 },
-  { field: "model", headerName: "Model", flex: 1 },
-  { field: "zone", headerName: "Zone", flex: 1 },
-  { field: "energy_star", headerName: "EnergyStar", flex: 1 },
+  { field: "DESCRIPTION", headerName: "Type", flex: 1 },
+  { field: "MANUFACTURER", headerName: "Manuf.", flex: 1 },
+  { field: "MODEL", headerName: "Model", flex: 1 },
+  { field: "ZONE", headerName: "Zone", flex: 1 },
+  { field: "ENERGY_STAR", headerName: "EnergyStar", flex: 1 },
   {
-    field: "link",
+    field: "LINK",
     headerName: "Link",
     flex: 1,
-    renderCell: (params: any) => LinkCell(params),
+    renderCell: (params: any) => LinkIconWithDefault(params),
   },
 ];
 
@@ -84,56 +80,16 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function AppliancesDataGrid() {
-  let { projectId } = useParams();
-  const [showModal, setShowModal] = useState(false);
-  const [rowData, setRowData] = useState<Array<AppliancesRecord>>(defaultRow);
-
-  useEffect(() => {
-    // Show modal if loading takes longer than 1s
-    let timerId: NodeJS.Timeout;
-    timerId = setTimeout(() => {
-      setShowModal(true);
-    }, 1000);
-
-    // Fetch the data from AirTable
-    const fetchProjectData = async () => {
-      const fetchedData = await fetchData(`${projectId}/appliances`);
-      const newRows = fetchedData.map((item: any) => {
-        item = datasheetRequired(item);
-        return {
-          id: item.id,
-          identifier: item.fields.DISPLAY_NAME,
-          energy_star: item.fields.ENERGY_STAR,
-          zone: item.fields.ZONE,
-          manufacturer: item.fields.MANUFACTURER,
-          model: item.fields.MODEL,
-          description: item.fields.DESCRIPTION,
-          link: item.fields.LINK,
-          specification: item.fields.SPECIFICATION,
-          data_sheet: item.fields.DATA_SHEET,
-          notes: item.fields.NOTES,
-          flag: item.fields.FLAG,
-        };
-      });
-
-      // Cleanup
-      newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
-      clearTimeout(timerId);
-      setShowModal(false);
-    };
-
-    fetchProjectData();
-  }, [projectId]);
+  // Load in the table data from the Database
+  const { projectId } = useParams();
+  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "lighting", projectId);
 
   // --------------------------------------------------------------------------
   // Render the component
   return (
     <>
-      {showModal ? (
-        <Modal open={showModal}>
-          <Box className="modal-box-loading">Loading Project Data...</Box>
-        </Modal>
-      ) : null}
+      {" "}
+      <LoadingModal showModal={showModal} />
       <Stack className="content-block-heading" spacing={1}>
         <h3>Appliances Fixtures:</h3>
       </Stack>

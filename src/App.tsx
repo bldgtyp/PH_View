@@ -8,19 +8,19 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Route, Routes } from "react-router-dom";
 import { HashRouter as Router } from "react-router-dom";
 
-import Sidebar from "./components/Sidebar";
-import Home from "./components/Pages/Home";
-import CertificationResults from "./components/Pages/CertificationResults";
-import GlazingTypes from "./components/Pages/GlazingTypes";
-import FrameTypes from "./components/Pages/FrameTypes";
-import WindowUnitTypes from "./components/Pages/WindowUnitTypes";
-import Ventilation from "./components/Pages/Ventilation";
-import Pumps from "./components/Pages/Pumps";
-import Fans from "./components/Pages/Fans";
-import Lighting from "./components/Pages/Lighting";
-import Appliances from "./components/Pages/Appliances";
-import Materials from "./components/Pages/Materials";
-import Constructions from "./components/Pages/Constructions";
+import Sidebar from "./components/layout/Sidebar";
+import Home from "./pages/Home";
+import Results from "./pages/Results";
+import GlazingTypes from "./pages/GlazingTypes";
+import FrameTypes from "./pages/FrameTypes";
+import WindowUnitTypes from "./pages/WindowUnitTypes";
+import Ventilation from "./pages/Ventilation";
+import Pumps from "./pages/Pumps";
+import Fans from "./pages/Fans";
+import Lighting from "./pages/Lighting";
+import Appliances from "./pages/Appliances";
+import Materials from "./pages/Materials";
+import Constructions from "./pages/Constructions";
 
 function App() {
   return (
@@ -31,8 +31,7 @@ function App() {
           <Sidebar />
           <Routes>
             <Route path=":projectId/home" element={<Home />} />
-            <Route path=":projectId/fans" element={<Fans />} />
-            <Route path=":projectId/cert-results" element={<CertificationResults />} />
+            <Route path=":projectId/cert-results" element={<Results />} />
             <Route path=":projectId/glazing-types" element={<GlazingTypes />} />
             <Route path=":projectId/frame-types" element={<FrameTypes />} />
             <Route path=":projectId/window-unit-types" element={<WindowUnitTypes />} />

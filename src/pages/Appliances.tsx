@@ -1,7 +1,7 @@
 import Page from "./Page";
-import ContentBlock from "../ContentBlock";
+import ContentBlock from "../components/layout/ContentBlock";
 import { Stack } from "@mui/material";
-import FrameTypesDataGrid from "../Tables/FrameTypesDataGrid";
+import AppliancesDataGrid from "../components/tables/AppliancesDataGrid";
 
 function RequiredDocumentation() {
   return (
@@ -23,49 +23,55 @@ function RequiredDocumentation() {
               <p>A PDF datasheet for the specified product which includes all of the required performance values:</p>
             </Stack>
             <ul>
-              <li>Face width (in.)</li>
-              <li>U-Value (Btu/hr-ft2-F)</li>
-              <li>Psi-Glazing-Edge (Btu/hr-ft2-F)</li>
+              <li>
+                Dishwashers
+                <ul>
+                  <li>kWh / year</li>
+                </ul>
+              </li>
+              <li>
+                Refrigerators
+                <ul>
+                  <li>kWh / Day</li>
+                </ul>
+              </li>
+              <li>
+                Cook-tops / Ovens
+                <ul>
+                  <li>kWh / Use</li>
+                </ul>
+              </li>
+              <li>
+                Clothes Washers{" "}
+                <ul>
+                  <li>kWh / year</li>
+                  <li>MEF (Modified Energy Factor)</li>
+                </ul>
+              </li>
+              <li>
+                Clothes Dryer
+                <ul>
+                  <li>CEF (Combined Energy Factor)</li>
+                </ul>
+              </li>
             </ul>
-          </li>
-          <li>
-            <Stack spacing={1} direction="row">
-              <h4>Acceptable Testing Protocols:</h4>
-            </Stack>
-            <ol>
-              <li>
-                <a href="https://www.phius.org/window-database">Phius Verified Window Performance</a>
-              </li>
-              <li>
-                <a href="https://www.phius.org/phius-frame-u-value-estimator">
-                  Phius Frame U-Value Estimator (from NFRC)
-                </a>
-              </li>
-              <li>
-                <a href="https://database.passivehouse.com/en/components/">PHI Test Certificate</a>
-              </li>
-              <li>
-                <a href="https://www.iso.org/standard/64995.html">ISO 10077-2:2017</a>
-              </li>
-            </ol>
           </li>
         </ul>
       </Stack>
     </>
   );
 }
-
-function FrameTypes() {
+function Appliances() {
   return (
     <Page>
       <ContentBlock>
         <RequiredDocumentation />
       </ContentBlock>
       <ContentBlock>
-        <FrameTypesDataGrid />
+        <AppliancesDataGrid />
       </ContentBlock>
     </Page>
   );
 }
 
-export default FrameTypes;
+export default Appliances;

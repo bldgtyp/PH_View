@@ -1,20 +1,16 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Stack, Modal } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
-import {
-  decimalCell,
-  notesCell,
-  datasheetRequired,
-  TooltipHeader,
-  datasheetCheckbox,
-  specificationCheckbox,
-  LinkCell,
-  InfoTooltipCell,
-  generateGridColumns,
-  generateDefaultRow,
-} from "./DataGridItems";
-import fetchData from "../fetchAirTable";
+import { generateGridColumns, generateDefaultRow } from "../common/DataGridFunctions";
+import { CheckboxForDatasheet } from "../common/CheckboxForDatasheet";
+import { CheckboxForSpecification } from "../common/CheckboxForSpecification";
+import { LinkIconWithDefault } from "../common/LinkIconWithDefault";
+import { TooltipWithInfo } from "../common/TooltipWithInfo";
+import { ValueAsDecimal } from "../../formatters/ValueAsDecimal";
+import { TooltipWithComment } from "../common/TooltipWithComment";
+import { TooltipHeader } from "../common/TooltipHeader";
+import LoadingModal from "../common/LoadingModal";
+import useLoadDataGridFromAirTable from "../../hooks/useLoadDataGridFromAirTable";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
@@ -40,65 +36,65 @@ type FrameTypesRecord = { id: string; createdTime: string; fields: FrameTypesFie
 // Define the rows and columns
 const tableFields = [
   {
-    field: "identifier",
+    field: "DISPLAY_NAME",
     headerName: "ID",
     flex: 1,
-    renderCell: (params: any) => InfoTooltipCell(params),
+    renderCell: (params: any) => TooltipWithInfo(params),
   },
   {
-    field: "notes",
+    field: "NOTES",
     headerName: "Notes",
     flex: 0.5,
-    renderCell: (params: any) => notesCell(params),
+    renderCell: (params: any) => TooltipWithComment(params),
   },
   {
-    field: "specification",
+    field: "SPECIFICATION",
     headerName: "Specification",
     flex: 1,
-    renderCell: (params: any) => specificationCheckbox(params),
+    renderCell: (params: any) => CheckboxForSpecification(params),
     renderHeader: (params: any) => TooltipHeader(params, "Do we have a product specification? Yes/No"),
   },
   {
-    field: "data_sheet",
+    field: "DATA_SHEET",
     headerName: "Data Sheet",
     flex: 1,
-    renderCell: (params: any) => datasheetCheckbox(params),
+    renderCell: (params: any) => CheckboxForDatasheet(params),
     renderHeader: (params: any) =>
       TooltipHeader(params, "Do we have a PDF data-sheet with the product's performance values? Yes/No"),
   },
-  { field: "manufacturer", headerName: "Manuf.", flex: 1 },
-  { field: "model", headerName: "Model", flex: 1 },
-  { field: "operation", headerName: "Operation", flex: 1 },
-  { field: "location", headerName: "Location", flex: 1 },
+  { field: "MANUFACTURER", headerName: "Manuf.", flex: 1 },
+  { field: "MODEL", headerName: "Model", flex: 1 },
+  { field: "OPERATION", headerName: "Operation", flex: 1 },
+  { field: "LOCATION", headerName: "Location", flex: 1 },
   {
-    field: "u_value",
+    field: "U-VALUE [BTU/HR-FT2-F]",
     headerName: "U-Value",
     flex: 1,
     renderCell: (params: any) => {
-      return decimalCell(params, 3);
+      return ValueAsDecimal(params, 3);
     },
   },
   {
-    field: "width_in",
+    field: "WIDTH [IN]",
     headerName: "Width [in.]",
     flex: 1,
     renderCell: (params: any) => {
-      return decimalCell(params, 2);
+      return ValueAsDecimal(params, 2);
     },
   },
   {
-    field: "psi_glazing",
+    field: "PSI-GLAZING [BTU/HR-FT-F]",
     headerName: "Psi-G",
     flex: 1,
     renderCell: (params: any) => {
-      return decimalCell(params, 3);
+      return ValueAsDecimal(params, 3);
     },
   },
   {
-    field: "link",
+    field: "LINK",
     headerName: "Link",
     flex: 1,
-    renderCell: (params: any) => LinkCell(params),
+    renderCell: (params: any) => LinkIconWithDefault(params),
   },
 ];
 
@@ -110,58 +106,16 @@ const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
 function FrameTypesDataGrid() {
-  let { projectId } = useParams();
-  const [showModal, setShowModal] = useState(false);
-  const [rowData, setRowData] = useState<Array<FrameTypesRecord>>(defaultRow);
-
-  useEffect(() => {
-    // Show modal if loading takes longer than 1s
-    let timerId: NodeJS.Timeout;
-    timerId = setTimeout(() => {
-      setShowModal(true);
-    }, 1000);
-
-    // Fetch the data from AirTable
-    const fetchProjectData = async () => {
-      const fetchedData = await fetchData(`${projectId}/frame_types`);
-      const newRows = fetchedData.map((item: any) => {
-        item = datasheetRequired(item);
-
-        return {
-          id: item.id,
-          identifier: item.fields.DISPLAY_NAME,
-          location: item.fields.LOCATION,
-          u_value: item.fields["U-VALUE [BTU/HR-FT2-F]"],
-          width_in: item.fields["WIDTH [IN]"],
-          psi_glazing: item.fields["PSI-GLAZING [BTU/HR-FT-F]"],
-          manufacturer: item.fields.MANUFACTURER,
-          model: item.fields.MODEL,
-          operation: item.fields.OPERATION,
-          link: item.fields.LINK,
-          specification: item.fields.SPECIFICATION,
-          data_sheet: item.fields.DATA_SHEET,
-          notes: item.fields.NOTES,
-          flag: item.fields.FLAG,
-        };
-      });
-
-      // Cleanup
-      newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
-      clearTimeout(timerId);
-      setShowModal(false);
-    };
-    fetchProjectData();
-  }, [projectId]);
+  // Load in the table data from the Database
+  const { projectId } = useParams();
+  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "frame_types", projectId);
 
   // --------------------------------------------------------------------------
   // Render the component
   return (
     <>
-      {showModal ? (
-        <Modal open={showModal}>
-          <Box className="modal-box-loading">Loading Project Data...</Box>
-        </Modal>
-      ) : null}
+      {" "}
+      <LoadingModal showModal={showModal} />
       <Stack className="content-block-heading" spacing={1}>
         <h3>Window Frame:</h3>
       </Stack>
