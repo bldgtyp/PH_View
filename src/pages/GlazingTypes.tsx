@@ -1,7 +1,7 @@
 import Page from "./Page";
-import ContentBlock from "../components/layout/ContentBlock";
 import { Stack } from "@mui/material";
-import GlazingTypesDataGrid from "../components/tables/GlazingTypesDataGrid";
+import ContentBlock from "./../components/layout/ContentBlock";
+import GlazingTypesDataGrid from "./../components/tables/GlazingTypesDataGrid";
 
 function RequiredDocumentation() {
   return (

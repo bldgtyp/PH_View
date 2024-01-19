@@ -1,6 +1,6 @@
 import Page from "./Page";
-import ErvDataGrid from "../components/tables/ErvDataGrid";
-import ContentBlock from "../components/layout/ContentBlock";
+import ErvDataGrid from "./../components/tables/ErvDataGrid";
+import ContentBlock from "./../components/layout/ContentBlock";
 import { Stack } from "@mui/material";
 
 function RequiredDocumentation() {
