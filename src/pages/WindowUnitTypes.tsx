@@ -23,7 +23,7 @@ function RequiredDocumentation() {
           <li>
             <Stack spacing={1} direction="row">
               <h4>Supplier Submittal:</h4>
-              <p>The final 'as-built' submittal from the window / door supplier.</p>
+              <p>The final &apos;as-built&apos; submittal from the window / door supplier.</p>
             </Stack>
           </li>
         </ul>

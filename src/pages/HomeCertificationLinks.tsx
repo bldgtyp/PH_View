@@ -48,7 +48,7 @@ function ButtonAirtable(props: { airTablePublicUrl?: string }) {
 }
 
 function HomeCertificationLinks(props: {
-  statusData: {};
+  statusData: Record<string, any>;
   linkData: { PHIUS_DROPBOX_URL?: string; AIRTABLE_PUBLIC_URL?: string };
   projData: { PHIUS_PROJECT_NUMBER?: string };
 }) {

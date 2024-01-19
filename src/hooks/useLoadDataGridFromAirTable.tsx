@@ -30,8 +30,7 @@ function useLoadDataGridFromAirTable<T>(
     }
 
     // Start the Model Timer
-    let timerId: NodeJS.Timeout;
-    timerId = setTimeout(() => {
+    const timerId: NodeJS.Timeout = setTimeout(() => {
       setShowModal(true);
     }, 1000);
 

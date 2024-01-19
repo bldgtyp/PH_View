@@ -12,7 +12,7 @@ import HomeCertificationLinks from "./HomeCertificationLinks";
 type AirTableRecord = { id: string; fields: { FIELD_NAME?: string; SECTION?: string; VALUE?: string } };
 
 function flattenData(d: AirTableRecord[]) {
-  let flatData: Record<string, string | undefined> = {};
+  const flatData: Record<string, string | undefined> = {};
   d.forEach((item) => {
     if (item.fields !== undefined && item.fields.FIELD_NAME !== undefined) {
       flatData[item.fields.FIELD_NAME] = item.fields.VALUE;
@@ -22,7 +22,7 @@ function flattenData(d: AirTableRecord[]) {
 }
 
 function Home() {
-  let { projectId } = useParams();
+  const { projectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [certStatusData, setCertStatusData] = useState({});
   const [certLinkData, setCertLinkData] = useState({});
@@ -30,8 +30,7 @@ function Home() {
 
   useEffect(() => {
     // Show modal if loading takes longer than 1s
-    let timerId: NodeJS.Timeout;
-    timerId = setTimeout(() => {
+    const timerId: NodeJS.Timeout = setTimeout(() => {
       setShowModal(true);
     }, 1000);
 

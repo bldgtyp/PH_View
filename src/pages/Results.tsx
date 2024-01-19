@@ -160,7 +160,7 @@ function createLoadLimits(heatingData: any[], coolingData: any[]) {
 
 // ----------------------------------------------------------------------------
 function Results() {
-  let { projectId } = useParams();
+  const { projectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   // RowData to Plot --
   // const [siteEnergyRowData, setSiteEnergyData] = useState<Array<DataGridRow>>(defaultRow);
@@ -176,8 +176,7 @@ function Results() {
 
   useEffect(() => {
     // Show modal if loading takes longer than 1s
-    let timerId: NodeJS.Timeout;
-    timerId = setTimeout(() => {
+    const timerId: NodeJS.Timeout = setTimeout(() => {
       setShowModal(true);
     }, 1000);
 
