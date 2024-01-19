@@ -6,7 +6,7 @@ import Page from "./Page";
 import ContentBlock from "../components/layout/ContentBlock";
 import HomeCertificationStatus from "./HomeCertificationStatus";
 import HomeCertificationLinks from "./HomeCertificationLinks";
-import SummaryGrid from "../components/tables/SummaryGrid";
+import SummaryGrid from "../components/tables/HomeSummaryDataGrid";
 
 type AirTableRecord = { id: string; fields: { FIELD_NAME?: string; SECTION?: string; VALUE?: string } };
 

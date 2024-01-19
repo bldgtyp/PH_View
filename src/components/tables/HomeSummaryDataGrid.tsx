@@ -1,10 +1,7 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Stack, Modal } from "@mui/material";
+import { Stack } from "@mui/material";
 import { generateDefaultRow } from "../common/DataGridFunctions";
-import fetchData from "../../hooks/fetchAirTable";
 import { useLocation } from "react-router-dom";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,6 +9,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import LoadingModal from "../common/LoadingModal";
+import useLoadDataGridFromAirTable from "../../hooks/useLoadDataGridFromAirTable";
+import ValueAsSentenceCase from "../../formatters/ValueAsSentenceCase";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
@@ -29,21 +28,12 @@ type SummaryRecord = {
 };
 
 /**
- * Converts a category name to a display name ("PUMPS" --> "Pumps").
- * Replaces underscores with spaces, converts to lowercase, and capitalizes the first letter of each word.
- * @param categoryName - The category name to convert.
- * @returns The converted display name.
+ * Creates a table cell with a link based on the category name and location.
+ * @param categoryName - The name of the category.
+ * @param location - The location object.
+ * @returns A table cell element with a link.
  */
-function makeDisplayName(categoryName: string) {
-  return categoryName
-    .replace(/_/g, " ")
-    .toLowerCase()
-    .replace(/(^\s*\w|[.!?]\s*\w)/g, function (c) {
-      return c.toUpperCase();
-    });
-}
-
-function makeCategoryCell(categoryName: string, location: any) {
+function createTableCellWithLink(categoryName: string, location: any) {
   const projectID: string = location.pathname.split("/")[1];
   const baseURL = "#/" + projectID + "/";
 
@@ -58,7 +48,7 @@ function makeCategoryCell(categoryName: string, location: any) {
     FRAME_TYPES: "frame-types",
   };
 
-  return <a href={baseURL + refs[categoryName]}>{makeDisplayName(categoryName)}</a>;
+  return <a href={baseURL + refs[categoryName]}>{ValueAsSentenceCase(categoryName)}</a>;
 }
 
 // --------------------------------------------------------------------------
@@ -66,19 +56,19 @@ function makeCategoryCell(categoryName: string, location: any) {
 
 const tableFields = [
   {
-    field: "category",
+    field: "CATEGORY",
     headerName: "Category",
   },
   {
-    field: "missing_specs",
+    field: "MISSING_SPECS",
     headerName: "Specs. Needed",
   },
   {
-    field: "missing_datasheets",
+    field: "MISSING_DATASHEETS",
     headerName: "Datasheets Needed",
   },
   {
-    field: "notes",
+    field: "NOTES",
     headerName: "Notes",
   },
 ];
@@ -88,40 +78,18 @@ const tableFields = [
 // This will display while the data is being fetched
 const defaultRow = generateDefaultRow(tableFields);
 
-function SummaryDataGrid() {
-  // let { projectId } = useParams();
-  // const { isOpen: showModal, openModal, closeModal } = useLoadingModal();
-  // const [rowData, setRowData] = useState<Array<SummaryRecord>>(defaultRow);
-  // const location = useLocation();
-  // const clear = useTimeout(() => openModal());
-
-  // useEffect(() => {
-  //   // Fetch the data from AirTable
-  //   const fetchProjectData = async () => {
-  //     const fetchedData = await fetchData(`${projectId}/summary`);
-  //     const newRows = fetchedData.map((item: SummaryRecord) => {
-  //       return {
-  //         id: item.id,
-  //         category: item.fields.CATEGORY,
-  //         missing_specs: item.fields.MISSING_SPECS,
-  //         missing_datasheets: item.fields.MISSING_DATASHEETS,
-  //         notes: item.fields.NOTES,
-  //       };
-  //     });
-
-  //     // ---Cleanup
-  //     newRows.length > 0 ? setRowData(newRows) : setRowData(defaultRow);
-  //     clear();
-  //     closeModal();
-  //   };
-  //   fetchProjectData();
-  // }, [projectId]);
+function HomeSummaryDataGrid() {
+  // Load in the table data from the Database
+  const location = useLocation();
+  const { projectId } = useParams();
+  const { showModal, rowData } = useLoadDataGridFromAirTable(defaultRow, "summary", projectId);
 
   // --------------------------------------------------------------------------
   // Render the component
   return (
     <>
-      {/* <LoadingModal showModal={showModal} />
+      {" "}
+      <LoadingModal showModal={showModal} />
       <Stack className="content-block-heading" spacing={1}>
         <h3>Items Needed to Complete Passive House Certification:</h3>
       </Stack>
@@ -139,18 +107,18 @@ function SummaryDataGrid() {
             {rowData.map((row: any) => (
               <TableRow key={row.id}>
                 <TableCell sx={{ fontWeight: 600, "& a:visited": { color: "black" } }} align="left">
-                  {makeCategoryCell(row.category, location)}
+                  {createTableCellWithLink(row.CATEGORY, location)}
                 </TableCell>
-                <TableCell align="center">{row.missing_specs}</TableCell>
-                <TableCell align="center">{row.missing_datasheets}</TableCell>
-                <TableCell align="left">{row.notes}</TableCell>
+                <TableCell align="center">{row.MISSING_SPECS}</TableCell>
+                <TableCell align="center">{row.MISSING_DATASHEETS}</TableCell>
+                <TableCell align="left">{row.NOTES}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-      </TableContainer> */}
+      </TableContainer>
     </>
   );
 }
 
-export default SummaryDataGrid;
+export default HomeSummaryDataGrid;
