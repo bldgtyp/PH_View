@@ -52,7 +52,7 @@ function useLoadDataGridFromAirTable<T>(
     };
 
     fetchProjectData();
-  }, [projectId]);
+  }, [projectId, defaultRow, page]);
 
   return { showModal, rowData };
 }
