@@ -1,0 +1,19 @@
+.summary-cell{
+    padding: 10px !important;
+}
+
+.summary-cell-header{
+    font-weight: 600 !important;
+    border-bottom: 2px solid black !important;
+}
+
+.summary-cell-missing{
+    font-weight: 600;
+    background-color: rgb(255, 219, 219);
+    padding: 6px;
+}
+
+.summary-cell-done{
+    background-color: #dfebf8;
+    padding: 6px;
+}

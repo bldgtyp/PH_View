@@ -7,7 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-
+import "../../styles/HomeSummaryTable.css";
 import { generateDefaultRow } from "../common/DataGridFunctions";
 import LoadingModal from "../common/LoadingModal";
 import useLoadDataGridFromAirTable from "../../hooks/useLoadDataGridFromAirTable";
@@ -47,6 +47,7 @@ function createTableCellWithLink(categoryName: string, location: any) {
     MATERIAL_LAYERS: "materials",
     GLAZING_TYPES: "glazing-types",
     FRAME_TYPES: "frame-types",
+    DHW_TANKS: "hot-water-tanks",
   };
 
   return <a href={baseURL + refs[categoryName]}>{ValueAsSentenceCase(categoryName)}</a>;
@@ -98,21 +99,35 @@ function HomeSummaryDataGrid() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: "bold", borderBottom: "2px solid black" }}>Category</TableCell>
-              <TableCell sx={{ fontWeight: "bold", borderBottom: "2px solid black" }}>Specs. Needed</TableCell>
-              <TableCell sx={{ fontWeight: "bold", borderBottom: "2px solid black" }}>Datasheets Needed</TableCell>
-              <TableCell sx={{ fontWeight: "bold", borderBottom: "2px solid black" }}>Comments</TableCell>
+              <TableCell className="summary-cell-header">Category</TableCell>
+              <TableCell align="center" width="200" className="summary-cell-header">
+                Specs. Needed
+              </TableCell>
+              <TableCell align="center" width="200" className="summary-cell-header">
+                Datasheets Needed
+              </TableCell>
+              <TableCell className="summary-cell-header">Comments</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="summary-table">
             {rowData.map((row: any) => (
               <TableRow key={row.id}>
                 <TableCell sx={{ fontWeight: 600, "& a:visited": { color: "black" } }} align="left">
                   {createTableCellWithLink(row.CATEGORY, location)}
                 </TableCell>
-                <TableCell align="center">{row.MISSING_SPECS}</TableCell>
-                <TableCell align="center">{row.MISSING_DATASHEETS}</TableCell>
-                <TableCell align="left">{row.NOTES}</TableCell>
+                <TableCell align="center" className="summary-cell">
+                  <div className={row.MISSING_SPECS !== 0 ? "summary-cell-missing" : "summary-cell-done"}>
+                    {row.MISSING_SPECS}
+                  </div>
+                </TableCell>
+                <TableCell align="center" className="summary-cell">
+                  <div className={row.MISSING_DATASHEETS !== 0 ? "summary-cell-missing" : "summary-cell-done"}>
+                    {row.MISSING_DATASHEETS}
+                  </div>
+                </TableCell>
+                <TableCell align="left" className="summary-cell">
+                  {row.NOTES}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -2,9 +2,12 @@ import { useParams } from "react-router-dom";
 import { Box, Stack } from "@mui/material";
 import StyledDataGrid from "../../styles/DataGrid";
 import { generateGridColumns, generateDefaultRow } from "../common/DataGridFunctions";
+import { CheckboxForDatasheet } from "../common/CheckboxForDatasheet";
+import { CheckboxForSpecification } from "../common/CheckboxForSpecification";
 import { TooltipWithInfo } from "../common/TooltipWithInfo";
 import { TooltipWithComment } from "../common/TooltipWithComment";
 import { TooltipHeader } from "../common/TooltipHeader";
+import { LinkIconWithDefault } from "../common/LinkIconWithDefault";
 import LoadingModal from "../common/LoadingModal";
 import useLoadDataGridFromAirTable from "../../hooks/useLoadDataGridFromAirTable";
 
@@ -39,18 +42,20 @@ const tableFields = [
     field: "SPECIFICATION",
     headerName: "Specification",
     flex: 1,
+    renderCell: (params: any) => CheckboxForSpecification(params),
     renderHeader: (params: any) => TooltipHeader(params, "Do we have a product specification? Yes/No"),
-    renderCell: (params: any) => parseFloat(params.value).toFixed(1),
   },
   {
     field: "DATA_SHEET",
     headerName: "Data Sheet",
     flex: 1,
-    renderHeader: (params: any) => TooltipHeader(params, "Do we have a product data-sheet? Yes/No"),
-    renderCell: (params: any) => parseFloat(params.value).toFixed(1),
+    renderCell: (params: any) => CheckboxForDatasheet(params),
+    renderHeader: (params: any) =>
+      TooltipHeader(params, "Do we have a PDF data-sheet with the product's performance values? Yes/No"),
   },
   { field: "MANUFACTURER", headerName: "Manufacturer", flex: 1 },
   { field: "MODEL", headerName: "Model", flex: 1 },
+  { field: "LINK", headerName: "Link", flex: 1, renderCell: (params: any) => LinkIconWithDefault(params) },
 ];
 
 // Create the columns object based on tableFields and then

@@ -1,6 +1,0 @@
-
-/Users/em/Dropbox/bldgtyp-00/00_PH_Tools/PH_View/src/hooks/useLoadDataGridFromAirTable.tsx
-  55:6  error  React Hook useEffect has missing dependencies: 'defaultRow' and 'page'. Either include them or remove the dependency array. If 'setRowData' needs the current value of 'defaultRow', you can also switch to useReducer instead of useState and read 'defaultRow' in the reducer  react-hooks/exhaustive-deps
-
-✖ 1 problem (1 error, 0 warnings)
-

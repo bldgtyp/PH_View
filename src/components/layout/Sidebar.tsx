@@ -14,6 +14,7 @@ import { ReactComponent as LightIcon } from "../../assets/icons/sidebar/lighting
 import { ReactComponent as ApplianceIcon } from "../../assets/icons/sidebar/appliances.svg";
 import { ReactComponent as MaterialIcon } from "../../assets/icons/sidebar/material.svg";
 import { ReactComponent as ConstructionIcon } from "../../assets/icons/sidebar/constructions.svg";
+import { ReactComponent as HotWaterTankIcon } from "../../assets/icons/sidebar/hot_water_tank.svg";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ function Sidebar() {
           </Typography>
           <SidebarItem text="Ventilators" onClick={() => goToPage("ventilation")} icon={VentilatorIcon} />
           <SidebarItem text="Pumps" onClick={() => goToPage("pumps")} icon={PumpIcon} />
+          <SidebarItem text="HW Tanks" onClick={() => goToPage("hot-water-tanks")} icon={HotWaterTankIcon} />
           <SidebarItem text="Fans" onClick={() => goToPage("fans")} icon={FanIcon} />
           <SidebarItem text="Lighting" onClick={() => goToPage("lighting")} icon={LightIcon} />
           <SidebarItem text="Appliances" onClick={() => goToPage("appliances")} icon={ApplianceIcon} />

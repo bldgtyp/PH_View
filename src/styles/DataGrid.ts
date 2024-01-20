@@ -107,7 +107,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     color: 'red',
   },
   '& .notes-icon': {
-    color: 'red',
+    color: 'orange',
   },
   theme,
 }));

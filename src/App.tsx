@@ -21,6 +21,7 @@ import Lighting from "./pages/Lighting";
 import Appliances from "./pages/Appliances";
 import Materials from "./pages/Materials";
 import Constructions from "./pages/Constructions";
+import HotWaterTanks from "./pages/HotWaterTanks";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path=":projectId/window-unit-types" element={<WindowUnitTypes />} />
             <Route path=":projectId/ventilation" element={<Ventilation />} />
             <Route path=":projectId/pumps" element={<Pumps />} />
+            <Route path=":projectId/hot-water-tanks" element={<HotWaterTanks />} />
             <Route path=":projectId/fans" element={<Fans />} />
             <Route path=":projectId/lighting" element={<Lighting />} />
             <Route path=":projectId/appliances" element={<Appliances />} />

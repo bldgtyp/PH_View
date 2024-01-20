@@ -4,30 +4,24 @@ import StyledDataGrid from "../../styles/DataGrid";
 import { generateGridColumns, generateDefaultRow } from "../common/DataGridFunctions";
 import { CheckboxForDatasheet } from "../common/CheckboxForDatasheet";
 import { CheckboxForSpecification } from "../common/CheckboxForSpecification";
-import { LinkIconWithDefault } from "../common/LinkIconWithDefault";
 import { TooltipWithInfo } from "../common/TooltipWithInfo";
 import { TooltipWithComment } from "../common/TooltipWithComment";
 import { TooltipHeader } from "../common/TooltipHeader";
+import { LinkIconWithDefault } from "../common/LinkIconWithDefault";
 import LoadingModal from "../common/LoadingModal";
 import useLoadDataGridFromAirTable from "../../hooks/useLoadDataGridFromAirTable";
 
 // ----------------------------------------------------------------------------
 // Define the AirTable data types
-type AppliancesFields = {
+type PumpsFields = {
   DISPLAY_NAME: string;
-  ZONE: string;
-  DESCRIPTION: string;
   MANUFACTURER: string;
   MODEL: string;
-  ENERGY_STAR: string;
-  LINK: string;
-  SPECIFICATION: boolean;
   DATA_SHEET: string;
-  NOTES: string;
-  FLAG: string;
+  SPECIFICATION: string;
 };
 
-type AppliancesRecord = { id: string; createdTime: string; fields: AppliancesFields };
+type PumpsRecord = { id: string; createdTime: string; fields: PumpsFields };
 
 // --------------------------------------------------------------------------
 // Define the rows and columns
@@ -59,17 +53,9 @@ const tableFields = [
     renderHeader: (params: any) =>
       TooltipHeader(params, "Do we have a PDF data-sheet with the product's performance values? Yes/No"),
   },
-  { field: "DESCRIPTION", headerName: "Type", flex: 1 },
-  { field: "MANUFACTURER", headerName: "Manuf.", flex: 1 },
+  { field: "MANUFACTURER", headerName: "Manufacturer", flex: 1 },
   { field: "MODEL", headerName: "Model", flex: 1 },
-  { field: "ZONE", headerName: "Zone", flex: 1 },
-  { field: "ENERGY_STAR", headerName: "EnergyStar", flex: 1 },
-  {
-    field: "LINK",
-    headerName: "Link",
-    flex: 1,
-    renderCell: (params: any) => LinkIconWithDefault(params),
-  },
+  { field: "LINK", headerName: "Link", flex: 1, renderCell: (params: any) => LinkIconWithDefault(params) },
 ];
 
 // Create the columns object based on tableFields and then
@@ -79,10 +65,10 @@ const columns = generateGridColumns(tableFields);
 const defaultRow = generateDefaultRow(tableFields);
 
 // ----------------------------------------------------------------------------
-function AppliancesDataGrid() {
+function HotWaterTanksDataGrid() {
   // Load in the table data from the Database
   const { projectId } = useParams();
-  const { showModal, rowData } = useLoadDataGridFromAirTable<AppliancesRecord>(defaultRow, "appliances", projectId);
+  const { showModal, rowData } = useLoadDataGridFromAirTable<PumpsRecord>(defaultRow, "hot_water_tanks", projectId);
 
   // --------------------------------------------------------------------------
   // Render the component
@@ -91,7 +77,7 @@ function AppliancesDataGrid() {
       {" "}
       <LoadingModal showModal={showModal} />
       <Stack className="content-block-heading" spacing={1}>
-        <h3>Appliances Fixtures:</h3>
+        <h3>Pumps:</h3>
       </Stack>
       <Box>
         <StyledDataGrid
@@ -110,4 +96,4 @@ function AppliancesDataGrid() {
   );
 }
 
-export default AppliancesDataGrid;
+export default HotWaterTanksDataGrid;
